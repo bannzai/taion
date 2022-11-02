@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:taion/entity/user.codegen.dart';
+import 'package:taion/features/error/page.dart';
 import 'package:taion/provider/auth.dart';
 import 'package:taion/provider/user.dart';
 
