@@ -15,15 +15,6 @@ DocumentReference<User> userDocumentReference({required String userID}) {
       );
 }
 
-class SetUser {
-  Future<void> call(User user) async {
-    await userDocumentReference(userID: user.id!)
-        .set(user, SetOptions(merge: true));
-  }
-}
-
-final setUserProvider = Provider((ref) => SetUser());
-
 final userStreamProvider = StreamProvider<User?>((ref) {
   final firebaseCurrentUser = ref.watch(firebaseCurrentUserProvider);
   if (firebaseCurrentUser is AsyncLoading) {
@@ -40,3 +31,12 @@ final userStreamProvider = StreamProvider<User?>((ref) {
       .snapshots()
       .map((event) => event.data());
 });
+
+class SetUser {
+  Future<void> call(User user) async {
+    await userDocumentReference(userID: user.id!)
+        .set(user, SetOptions(merge: true));
+  }
+}
+
+final setUserProvider = Provider((ref) => SetUser());
