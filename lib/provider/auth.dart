@@ -18,3 +18,11 @@ final firebaseCurrentUserProvider = FutureProvider((ref) async {
 
   return FirebaseAuth.instance.currentUser;
 });
+
+class SignInAnonymously {
+  Future<UserCredential> call() async {
+    return await FirebaseAuth.instance.signInAnonymously();
+  }
+}
+
+final signInAnonymouslyProvider = Provider((ref) => SignInAnonymously());
