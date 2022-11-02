@@ -16,14 +16,15 @@ class ErrorPage extends StatelessWidget {
         child: Column(
           children: [
             const Spacer(),
-            Image.asset("images/computer_sagi_error.png"),
+            PrimaryButton(
+              onPressed: () async {
+                reload();
+              },
+              text: "再読み込み",
+            ),
+            const SizedBox(height: 20),
             Text(error.toString()),
             const SizedBox(height: 10),
-            PrimaryButton(
-                onPressed: () async {
-                  reload();
-                },
-                text: "再読み込み"),
             const Spacer(),
           ],
         ),
