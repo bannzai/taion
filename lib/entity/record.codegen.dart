@@ -22,7 +22,7 @@ class Record with _$Record {
     @JsonKey(
       fromJson: NonNullTimestampConverter.timestampToDateTime,
       toJson: NonNullTimestampConverter.dateTimeToTimestamp,
-    )
+  )
         required DateTime createdDateTime,
   }) = _Record;
 
