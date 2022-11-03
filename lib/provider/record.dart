@@ -21,7 +21,7 @@ CollectionReference<Record> recordCollectionReference(
           toFirestore: _toFirestore(),
         );
 
-final recordsStreamProvider = StreamProvider((ref) =>
+final recordsProvider = StreamProvider((ref) =>
     recordCollectionReference(userID: FirebaseAuth.instance.currentUser!.uid)
         .orderBy("createdDateTime", descending: true)
         .snapshots()

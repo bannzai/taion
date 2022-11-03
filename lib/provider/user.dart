@@ -15,7 +15,7 @@ DocumentReference<User> userDocumentReference({required String userID}) {
       );
 }
 
-final userStreamProvider = StreamProvider<User?>((ref) {
+final userProvider = StreamProvider<User?>((ref) {
   final firebaseCurrentUser = ref.watch(firebaseCurrentUserProvider);
   if (firebaseCurrentUser is AsyncLoading) {
     return const Stream.empty();
