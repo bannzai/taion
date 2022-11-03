@@ -8,6 +8,7 @@ part 'user.codegen.g.dart';
 // Reference: https://developer.twitter.com/en/docs/twitter-api/v1/data-dictionary/object-model/user
 @freezed
 class User with _$User {
+  @JsonSerializable(explicitToJson: true)
   factory User({
     required String? id,
     @JsonKey(
