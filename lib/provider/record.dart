@@ -12,19 +12,6 @@ FromFirestore<Record> _fromFirestore() =>
     (snapshot, _) => Record.fromJson(snapshot.data()!);
 ToFirestore<Record> _toFirestore() => (value, _) => value.toJson();
 
-class CreateRecord {
-  Future<void> call(
-    Record record, {
-    required String userID,
-  }) async {
-    await recordCollectionReference(userID: userID)
-        .doc()
-        .set(record, SetOptions(merge: true));
-  }
-}
-
-final createRecordProvider = Provider((ref) => CreateRecord());
-
 CollectionReference<Record> recordCollectionReference(
         {required String userID}) =>
     FirebaseFirestore.instance
@@ -39,3 +26,16 @@ final recordsStreamProvider = StreamProvider((ref) =>
         .orderBy("createdDateTime", descending: true)
         .snapshots()
         .map((event) => event.docs.map((e) => e.data()).toList()));
+
+class SetRecord {
+  Future<void> call(
+    Record record, {
+    required String userID,
+  }) async {
+    await recordCollectionReference(userID: userID)
+        .doc()
+        .set(record, SetOptions(merge: true));
+  }
+}
+
+final setRecordProvider = Provider((ref) => SetRecord());
