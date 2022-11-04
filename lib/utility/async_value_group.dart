@@ -22,7 +22,7 @@ extension AsyncValueGroup on AsyncValue {
       return const AsyncLoading();
     }
     try {
-      return AsyncData(Tuple2(a1.value!, a2.value!));
+      return AsyncData(Tuple2(a1.value as T1, a2.value as T2));
     } catch (e, st) {
       return AsyncError(e, st);
     }
@@ -34,7 +34,7 @@ extension AsyncValueGroup on AsyncValue {
       return const AsyncLoading();
     }
     try {
-      return AsyncData(Tuple3(a1.value!, a2.value!, a3.value!));
+      return AsyncData(Tuple3(a1.value as T1, a2.value as T2, a3.value as T3));
     } catch (e, st) {
       return AsyncError(e, st);
     }

@@ -18,26 +18,8 @@ class PrimaryButton extends HookWidget {
     final isMounted = useIsMounted();
 
     return ElevatedButton(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(
-            maxHeight: 44, minHeight: 44, minWidth: 220, maxWidth: 220),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Text(
-              text,
-              style: const TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 17,
-                color: Colors.white,
-              ),
-            ),
-            if (isProcessing.value) _Loading(),
-          ],
-        ),
-      ),
       style: ElevatedButton.styleFrom(
-        primary: Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).primaryColor,
         minimumSize: const Size.fromHeight(44),
       ),
       onPressed: onPressed == null
@@ -58,6 +40,24 @@ class PrimaryButton extends HookWidget {
                 }
               }
             },
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(
+            maxHeight: 44, minHeight: 44, minWidth: 220, maxWidth: 220),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Text(
+              text,
+              style: const TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 17,
+                color: Colors.white,
+              ),
+            ),
+            if (isProcessing.value) _Loading(),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -78,26 +78,8 @@ class TwitterLikeButton extends HookWidget {
     final isMounted = useIsMounted();
 
     return ElevatedButton(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(
-            maxHeight: 44, minHeight: 44, minWidth: 180, maxWidth: 180),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Text(
-              text,
-              style: const TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 17,
-                color: Colors.white,
-              ),
-            ),
-            if (isProcessing.value) _Loading(),
-          ],
-        ),
-      ),
       style: ElevatedButton.styleFrom(
-        primary: AppColor.primary,
+        backgroundColor: AppColor.primary,
         minimumSize: const Size.fromHeight(44),
       ),
       onPressed: onPressed == null
@@ -118,6 +100,24 @@ class TwitterLikeButton extends HookWidget {
                 }
               }
             },
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(
+            maxHeight: 44, minHeight: 44, minWidth: 180, maxWidth: 180),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Text(
+              text,
+              style: const TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 17,
+                color: Colors.white,
+              ),
+            ),
+            if (isProcessing.value) _Loading(),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -135,6 +135,11 @@ class GreyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.grey,
+        minimumSize: const Size.fromHeight(44),
+      ),
+      onPressed: onPressed,
       child: ConstrainedBox(
         constraints: const BoxConstraints(
             maxHeight: 44, minHeight: 44, minWidth: 180, maxWidth: 180),
@@ -149,11 +154,6 @@ class GreyButton extends StatelessWidget {
           ),
         ),
       ),
-      style: ElevatedButton.styleFrom(
-        primary: Colors.grey,
-        minimumSize: const Size.fromHeight(44),
-      ),
-      onPressed: onPressed,
     );
   }
 }
@@ -180,13 +180,6 @@ class AppTextButton extends HookWidget {
           backgroundColor: Colors.transparent,
           padding: EdgeInsets.zero,
         ),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            text,
-            if (isProcessing.value) _Loading(),
-          ],
-        ),
         onPressed: isProcessing.value || onPressed == null
             ? null
             : () async {
@@ -205,6 +198,13 @@ class AppTextButton extends HookWidget {
                   }
                 }
               },
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            text,
+            if (isProcessing.value) _Loading(),
+          ],
+        ),
       ),
     );
   }

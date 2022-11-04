@@ -21,11 +21,11 @@ class RecordListPage extends HookConsumerWidget {
       ref.watch(userProvider),
     ).when(
       data: (t) => t.a1.isEmpty
-          ? RecordListEmpty()
+          ? const RecordListEmpty()
           : RecordListBody(records: t.a1, user: t.a2),
       error: (error, st) =>
           ErrorPage(error: error, reload: () => ref.refresh(recordsProvider)),
-      loading: () => CircularProgressIndicator(),
+      loading: () => const CircularProgressIndicator(),
     );
   }
 }
@@ -49,10 +49,10 @@ class RecordListBody extends StatelessWidget {
                   children: [
                     Text(_dateTime(record.takeTempertureDateTime),
                         style:
-                            TextStyle(color: AppColor.textMain, fontSize: 14)),
+                            const TextStyle(color: AppColor.textMain, fontSize: 14)),
                     Text("${record.temperature}",
                         style:
-                            TextStyle(color: AppColor.textMain, fontSize: 14)),
+                            const TextStyle(color: AppColor.textMain, fontSize: 14)),
                   ],
                 ),
               Positioned(

@@ -22,11 +22,11 @@ class Root extends HookConsumerWidget {
     final signIn = ref.watch(signInAnonymouslyProvider);
 
     if (asyncUser is AsyncLoading) {
-      return CircularProgressIndicator();
+      return const CircularProgressIndicator();
     }
 
     useEffect(() {
-      final f = () async {
+      f() async {
         if (user == null) {
           await signIn();
           await setUser(User(id: null, createdDateTime: DateTime.now()));
@@ -38,7 +38,7 @@ class Root extends HookConsumerWidget {
             unawaited(FirebaseCrashlytics.instance.setUserIdentifier(userID));
           }
         }
-      };
+      }
 
       f();
       return null;
@@ -47,9 +47,9 @@ class Root extends HookConsumerWidget {
     return asyncUser.when(
       data: (user) {
         if (user != null) {
-          return RecordListPage();
+          return const RecordListPage();
         } else {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         }
       },
       error: (error, st) => ErrorPage(
