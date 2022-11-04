@@ -7,6 +7,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:taion/entity/user.codegen.dart';
 import 'package:taion/features/error/page.dart';
+import 'package:taion/features/records/page.dart';
 import 'package:taion/provider/auth.dart';
 import 'package:taion/provider/user.dart';
 
@@ -15,7 +16,7 @@ class Root extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncUser = ref.watch(userStreamProvider);
+    final asyncUser = ref.watch(userProvider);
     final user = asyncUser.asData?.value;
     final setUser = ref.watch(setUserProvider);
     final signIn = ref.watch(signInAnonymouslyProvider);
@@ -46,7 +47,7 @@ class Root extends HookConsumerWidget {
     return asyncUser.when(
       data: (user) {
         if (user != null) {
-          return AppHome(user: user);
+          return RecordListPage();
         } else {
           return CircularProgressIndicator();
         }
