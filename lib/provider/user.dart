@@ -32,6 +32,9 @@ final userProvider = StreamProvider<User?>((ref) {
       .map((event) => event.data());
 });
 
+final mustUserIDProvider =
+    Provider<String>((ref) => ref.watch(userProvider).value!.id!);
+
 class SetUser {
   Future<void> call(User user) async {
     await userDocumentReference(userID: user.id!)
