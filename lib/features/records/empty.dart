@@ -9,32 +9,37 @@ class RecordListEmpty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          const Text("初めての記録をしましょう",
-              style: TextStyle(fontSize: 20, color: AppColor.textMain)),
-          const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              shape: const CircleBorder(),
-            ),
-            child: Container(
+    return Container(
+      color: Colors.white,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text("初めての記録をしましょう",
+                style: TextStyle(fontSize: 20, color: AppColor.textMain)),
+            const SizedBox(height: 20),
+            Container(
               width: 100,
               height: 100,
               decoration: const BoxDecoration(
-                color: AppColor.primary,
                 shape: BoxShape.circle,
               ),
-              child: SvgPicture.asset(
-                "images/body-temperture.svg",
-                height: 48,
-                width: 48,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColor.primary,
+                  shape: const CircleBorder(),
+                ),
+                child: SvgPicture.asset(
+                  "images/body-temperture.svg",
+                  color: Colors.white,
+                  height: 48,
+                  width: 48,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
