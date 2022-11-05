@@ -9,7 +9,7 @@ String _collectionPathBuilder({required String userID}) {
 }
 
 FromFirestore<Record> _fromFirestore() => (snapshot, _) =>
-    Record.fromJson(snapshot.data()!)..copyWith(id: snapshot.id);
+    Record.fromJson(snapshot.data()!).copyWith(id: snapshot.id);
 ToFirestore<Record> _toFirestore() => (value, _) => value.toJson();
 
 CollectionReference<Record> recordCollectionReference(

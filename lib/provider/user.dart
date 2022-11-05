@@ -8,7 +8,7 @@ import '../entity/user.codegen.dart';
 DocumentReference<User> userDocumentReference({required String userID}) {
   return FirebaseFirestore.instance.doc("/users/$userID").withConverter(
         fromFirestore: (snapshot, _) =>
-            User.fromJson(snapshot.data()!)..copyWith(id: snapshot.id),
+            User.fromJson(snapshot.data()!).copyWith(id: snapshot.id),
         toFirestore: (User value, _) {
           return value.toJson();
         },
