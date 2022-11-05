@@ -23,7 +23,8 @@ class _$RecordTearOff {
   const _$RecordTearOff();
 
   _Record call(
-      {required double temperature,
+      {required String? id,
+      required double temperature,
       required List<String> tags,
       required String memo,
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
@@ -31,6 +32,7 @@ class _$RecordTearOff {
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
           required DateTime createdDateTime}) {
     return _Record(
+      id: id,
       temperature: temperature,
       tags: tags,
       memo: memo,
@@ -49,6 +51,7 @@ const $Record = _$RecordTearOff();
 
 /// @nodoc
 mixin _$Record {
+  String? get id => throw _privateConstructorUsedError;
   double get temperature => throw _privateConstructorUsedError;
   List<String> get tags => throw _privateConstructorUsedError;
   String get memo => throw _privateConstructorUsedError;
@@ -71,7 +74,8 @@ abstract class $RecordCopyWith<$Res> {
   factory $RecordCopyWith(Record value, $Res Function(Record) then) =
       _$RecordCopyWithImpl<$Res>;
   $Res call(
-      {double temperature,
+      {String? id,
+      double temperature,
       List<String> tags,
       String memo,
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
@@ -90,6 +94,7 @@ class _$RecordCopyWithImpl<$Res> implements $RecordCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? temperature = freezed,
     Object? tags = freezed,
     Object? memo = freezed,
@@ -97,6 +102,10 @@ class _$RecordCopyWithImpl<$Res> implements $RecordCopyWith<$Res> {
     Object? createdDateTime = freezed,
   }) {
     return _then(_value.copyWith(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       temperature: temperature == freezed
           ? _value.temperature
           : temperature // ignore: cast_nullable_to_non_nullable
@@ -127,7 +136,8 @@ abstract class _$RecordCopyWith<$Res> implements $RecordCopyWith<$Res> {
       __$RecordCopyWithImpl<$Res>;
   @override
   $Res call(
-      {double temperature,
+      {String? id,
+      double temperature,
       List<String> tags,
       String memo,
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
@@ -147,6 +157,7 @@ class __$RecordCopyWithImpl<$Res> extends _$RecordCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? temperature = freezed,
     Object? tags = freezed,
     Object? memo = freezed,
@@ -154,6 +165,10 @@ class __$RecordCopyWithImpl<$Res> extends _$RecordCopyWithImpl<$Res>
     Object? createdDateTime = freezed,
   }) {
     return _then(_Record(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       temperature: temperature == freezed
           ? _value.temperature
           : temperature // ignore: cast_nullable_to_non_nullable
@@ -183,7 +198,8 @@ class __$RecordCopyWithImpl<$Res> extends _$RecordCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$_Record implements _Record {
   _$_Record(
-      {required this.temperature,
+      {required this.id,
+      required this.temperature,
       required this.tags,
       required this.memo,
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
@@ -194,6 +210,8 @@ class _$_Record implements _Record {
   factory _$_Record.fromJson(Map<String, dynamic> json) =>
       _$$_RecordFromJson(json);
 
+  @override
+  final String? id;
   @override
   final double temperature;
   @override
@@ -213,7 +231,7 @@ class _$_Record implements _Record {
 
   @override
   String toString() {
-    return 'Record(temperature: $temperature, tags: $tags, memo: $memo, takeTempertureDateTime: $takeTempertureDateTime, createdDateTime: $createdDateTime)';
+    return 'Record(id: $id, temperature: $temperature, tags: $tags, memo: $memo, takeTempertureDateTime: $takeTempertureDateTime, createdDateTime: $createdDateTime)';
   }
 
   @override
@@ -221,6 +239,7 @@ class _$_Record implements _Record {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Record &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality()
                 .equals(other.temperature, temperature) &&
             const DeepCollectionEquality().equals(other.tags, tags) &&
@@ -234,6 +253,7 @@ class _$_Record implements _Record {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(temperature),
       const DeepCollectionEquality().hash(tags),
       const DeepCollectionEquality().hash(memo),
@@ -253,7 +273,8 @@ class _$_Record implements _Record {
 
 abstract class _Record implements Record {
   factory _Record(
-      {required double temperature,
+      {required String? id,
+      required double temperature,
       required List<String> tags,
       required String memo,
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
@@ -263,6 +284,8 @@ abstract class _Record implements Record {
 
   factory _Record.fromJson(Map<String, dynamic> json) = _$_Record.fromJson;
 
+  @override
+  String? get id;
   @override
   double get temperature;
   @override

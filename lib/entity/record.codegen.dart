@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:taion/entity/firestore_converter.dart';
@@ -10,6 +9,7 @@ part 'record.codegen.g.dart';
 class Record with _$Record {
   @JsonSerializable(explicitToJson: true)
   factory Record({
+    required String? id,
     required double temperature,
     required List<String> tags,
     required String memo,
@@ -21,7 +21,7 @@ class Record with _$Record {
     @JsonKey(
       fromJson: NonNullTimestampConverter.timestampToDateTime,
       toJson: NonNullTimestampConverter.dateTimeToTimestamp,
-  )
+    )
         required DateTime createdDateTime,
   }) = _Record;
 
