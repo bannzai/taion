@@ -1,8 +1,9 @@
 PODS:
-  - cloud_firestore (3.5.1):
+  - cloud_firestore (4.0.4):
     - Firebase/Firestore (= 9.6.0)
     - firebase_core
     - Flutter
+    - nanopb (< 2.30910.0, >= 2.30908.0)
   - Firebase/Analytics (9.6.0):
     - Firebase/Core
   - Firebase/Auth (9.6.0):
@@ -22,22 +23,22 @@ PODS:
   - Firebase/Messaging (9.6.0):
     - Firebase/CoreOnly
     - FirebaseMessaging (~> 9.6.0)
-  - firebase_analytics (9.3.8):
+  - firebase_analytics (10.0.4):
     - Firebase/Analytics (= 9.6.0)
     - firebase_core
     - Flutter
-  - firebase_auth (3.11.2):
+  - firebase_auth (4.1.1):
     - Firebase/Auth (= 9.6.0)
     - firebase_core
     - Flutter
-  - firebase_core (1.24.0):
+  - firebase_core (2.1.1):
     - Firebase/CoreOnly (= 9.6.0)
     - Flutter
-  - firebase_crashlytics (2.9.0):
+  - firebase_crashlytics (3.0.4):
     - Firebase/Crashlytics (= 9.6.0)
     - firebase_core
     - Flutter
-  - firebase_messaging (13.1.0):
+  - firebase_messaging (14.0.4):
     - Firebase/Messaging (= 9.6.0)
     - firebase_core
     - Flutter
@@ -210,13 +211,13 @@ CHECKOUT OPTIONS:
     :tag: 9.6.0
 
 SPEC CHECKSUMS:
-  cloud_firestore: 49d69be2b924677f2974d8b38acc705c9908c09b
+  cloud_firestore: 23d63f126deaf729ced49612342530c006d7c9e7
   Firebase: 5ae8b7cf8efce559a653aef0ad95bab3f427c351
-  firebase_analytics: 9937a91df25cce5b0ee19eaf65277ff8bf0f88e5
-  firebase_auth: 07a4db69cfa447ac42cb7faa560fc100708b707c
-  firebase_core: 7c28ecc1e5dd74e03829ac3e9ff5ba3314e737a9
-  firebase_crashlytics: 520a59314eaaadb34f9be4c2a285d99cfa88ebdb
-  firebase_messaging: a2a8c6db6d799c7f59b1c0d7c68a2f0027bfa2c4
+  firebase_analytics: 9d9ca64e70cfe101cf6f62f9de26f780c93e5562
+  firebase_auth: 814aab584749a9e7e8e4e9b1220e3ac4b48ce076
+  firebase_core: b215d861df2eafc0e7e4b0ab77163bc8c1b9523f
+  firebase_crashlytics: 97cf290451ec96f375f764b5f2bac6c58aa6def8
+  firebase_messaging: 84fcfb522b2492a23243ba570b93637d60876818
   FirebaseAnalytics: 89ad762c6c3852a685794174757e2c60a36b6a82
   FirebaseAuth: e4a5d3c36e778e41141b91cc861103a441d80bcc
   FirebaseCore: 2082fffcd855f95f883c0a1641133eb9bbe76d40
