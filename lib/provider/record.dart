@@ -8,8 +8,8 @@ String _collectionPathBuilder({required String userID}) {
   return "/users/$userID/records";
 }
 
-FromFirestore<Record> _fromFirestore() =>
-    (snapshot, _) => Record.fromJson(snapshot.data()!);
+FromFirestore<Record> _fromFirestore() => (snapshot, _) =>
+    Record.fromJson(snapshot.data()!)..copyWith(id: snapshot.id);
 ToFirestore<Record> _toFirestore() => (value, _) => value.toJson();
 
 CollectionReference<Record> recordCollectionReference(
