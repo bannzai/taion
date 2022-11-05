@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:taion/style/color.dart';
 
 class RecordListEmpty extends StatelessWidget {
@@ -26,9 +27,10 @@ class RecordListEmpty extends StatelessWidget {
                 color: AppColor.primary,
                 shape: BoxShape.circle,
               ),
-              child: Image.asset(
+              child: SvgPicture.asset(
                 "images/body-temperture.svg",
                 height: 48,
+                width: 48,
               ),
             ),
           ),

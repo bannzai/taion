@@ -28,8 +28,10 @@ class Root extends HookConsumerWidget {
     useEffect(() {
       f() async {
         if (user == null) {
-          await signIn();
-          await setUser(User(id: null, createdDateTime: DateTime.now()));
+          final userCredential = await signIn();
+          await setUser(User(
+              id: userCredential.user!.uid, createdDateTime: DateTime.now()));
+          // ignore: unused_result
           ref.refresh(firebaseCurrentUserProvider);
         } else {
           final userID = user.id;
