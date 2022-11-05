@@ -33,7 +33,7 @@ class SetRecord {
     required String userID,
   }) async {
     await recordCollectionReference(userID: userID)
-        .doc()
+        .doc(record.id)
         .set(record, SetOptions(merge: true));
   }
 }
