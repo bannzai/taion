@@ -62,66 +62,6 @@ class PrimaryButton extends HookWidget {
   }
 }
 
-class TwitterLikeButton extends HookWidget {
-  final String text;
-  final Future<void> Function()? onPressed;
-
-  const TwitterLikeButton({
-    Key? key,
-    required this.onPressed,
-    required this.text,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    var isProcessing = useState(false);
-    final isMounted = useIsMounted();
-
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: AppColor.primary,
-        minimumSize: const Size.fromHeight(44),
-      ),
-      onPressed: onPressed == null
-          ? null
-          : () async {
-              if (isProcessing.value) {
-                return;
-              }
-              isProcessing.value = true;
-
-              try {
-                await onPressed?.call();
-              } catch (error) {
-                rethrow;
-              } finally {
-                if (isMounted()) {
-                  isProcessing.value = false;
-                }
-              }
-            },
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(
-            maxHeight: 44, minHeight: 44, minWidth: 180, maxWidth: 180),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Text(
-              text,
-              style: const TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 17,
-                color: Colors.white,
-              ),
-            ),
-            if (isProcessing.value) _Loading(),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class GreyButton extends StatelessWidget {
   final String text;
   final Function() onPressed;
