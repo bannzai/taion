@@ -3,26 +3,19 @@ import 'package:flutter/services.dart';
 import 'package:taion/features/record_post/util.dart';
 
 class RecordPostTempureture extends StatelessWidget {
-  final ValueNotifier<double?> tempureture;
+  final ValueNotifier<double?> tempertureture;
   final TextEditingController textEditingController;
   final FocusNode focusNode;
 
   const RecordPostTempureture({
     super.key,
-    required this.tempureture,
+    required this.tempertureture,
     required this.textEditingController,
     required this.focusNode,
   });
 
   @override
   Widget build(BuildContext context) {
-    final tempureture = this.tempureture.value;
-    if (tempureture != null) {
-      if (tempureture >= 10 && tempureture < 100) {
-        textEditingController.value = TextEditingValue(text: "$tempureture.");
-      }
-    }
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -31,15 +24,14 @@ class RecordPostTempureture extends StatelessWidget {
         TextFormField(
           onChanged: (text) {
             if (text.isEmpty) {
-              this.tempureture.value = null;
+              tempertureture.value = null;
               return;
             }
-            this.tempureture.value = double.parse(text.replaceAll(".", ""));
+            tempertureture.value = double.parse(text.replaceAll(".", ""));
           },
           inputFormatters: [
             FilteringTextInputFormatter.digitsOnly,
-            FilteringTextInputFormatter.allow(RegExp(r'^3.+')),
-            FilteringTextInputFormatter.allow(RegExp(r'^4.+')),
+            TempertureInputFormatter(),
           ],
           decoration: const InputDecoration(
             hintText: "36.5",
@@ -53,5 +45,69 @@ class RecordPostTempureture extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class TempertureInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    if (oldValue.text.contains(".")) {
+      if (newValue.text.length >= 4) {
+        // e.g) Old: 36.5, New: 3655, Result: 36.5
+        return oldValue;
+      }
+      if (oldValue.text.length == newValue.text.length &&
+          oldValue.text.length == 3) {
+        // e.g) Old: 36., New: 365, Result: 36.5
+        return TextEditingValue(
+          text:
+              "${newValue.text.substring(0, 2)}.${newValue.text.substring(2, 3)}",
+          selection: TextSelection.collapsed(
+              offset: newValue.selection.baseOffset + 1),
+          composing: TextRange.empty,
+        );
+      }
+    }
+
+    if (oldValue.text.length < newValue.text.length) {
+      if (oldValue.text.isEmpty && newValue.text.length == 1) {
+        // e.g) Old: , New: 3, Result: 3
+        return newValue;
+      }
+      if (oldValue.text.length == 1 && newValue.text.length == 2) {
+        // e.g) Old: 3, New: 36, Result: 36.
+        return TextEditingValue(
+          text: "${newValue.text}.",
+          selection: TextSelection.collapsed(
+              offset: newValue.selection.baseOffset + 1),
+          composing: TextRange.empty,
+        );
+      }
+      if (oldValue.text.length == 2 && newValue.text.length == 3) {
+        // e.g) Old: 36, New: 365, Result: 36.5
+        return TextEditingValue(
+          text:
+              "${newValue.text.substring(0, 2)}.${newValue.text.substring(2, 3)}",
+          selection: TextSelection.collapsed(
+              offset: newValue.selection.baseOffset + 1),
+          composing: TextRange.empty,
+        );
+      }
+      if (oldValue.text.length == 3 && newValue.text.length == 4) {
+        assert(false, "unexpected pattern ${oldValue.text}, ${newValue.text}");
+        return newValue;
+      }
+    } else if (oldValue.text.length > newValue.text.length) {
+      // e.g) Old: 36.5, New: 36., Result: 36.
+      // e.g) Old: 36., New: 36, Result: 36
+      // e.g) Old: 36, New: 3, Result: 3
+      // e.g) Old: 3, New: , Result:
+      return newValue;
+    }
+
+    return newValue;
   }
 }
