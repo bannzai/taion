@@ -18,7 +18,7 @@ class RecordPostTempureture extends StatelessWidget {
     final tempureture = this.tempureture.value;
     if (tempureture != null) {
       if (tempureture >= 10 && tempureture < 100) {
-        textEditingController.value = TextEditingValue(text: "$tempureture.")
+        textEditingController.value = TextEditingValue(text: "$tempureture.");
       }
     }
 
