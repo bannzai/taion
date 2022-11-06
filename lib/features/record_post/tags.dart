@@ -28,9 +28,9 @@ class RecordPostTags extends StatelessWidget {
               selected: isSelected(),
               onSelected: (selected) {
                 if (isSelected()) {
-                  tags.value = tags.value..remove(e);
+                  tags.value = List.from(tags.value)..remove(e);
                 } else {
-                  tags.value = tags.value..add(e);
+                  tags.value = List.from(tags.value)..add(e);
                 }
               },
             );
