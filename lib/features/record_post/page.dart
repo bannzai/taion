@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:taion/entity/record.codegen.dart';
 import 'package:taion/features/record_post/memo.dart';
 import 'package:taion/features/record_post/tags.dart';
+import 'package:taion/features/record_post/tempureture.dart';
 import 'package:taion/provider/record.dart';
 import 'package:taion/provider/user.dart';
 import 'package:taion/style/button.dart';
@@ -27,8 +28,13 @@ class RecordPostPage extends HookConsumerWidget {
     final tempuretureValue = tempureture.value;
     final takeTempertureDateTimeValue = takeTempertureDateTime.value;
 
-    final textEditingController = useTextEditingController(text: memo.value);
-    final focusNode = useFocusNode();
+    final tempuretureTextEditingController =
+        useTextEditingController(text: memo.value);
+    final tempuretureFocusNode = useFocusNode();
+    final memoTextEditingController =
+        useTextEditingController(text: memo.value);
+    final memoFocusNode = useFocusNode();
+
     final scrollController = useScrollController();
     final offset =
         MediaQuery.of(context).viewInsets.bottom + keyboardToolbarHeight + 60;
@@ -88,17 +94,23 @@ class RecordPostPage extends HookConsumerWidget {
                 controller: scrollController,
                 children: [
                   ...[
+                    RecordPostTempureture(
+                      tempureture: tempureture,
+                      textEditingController: tempuretureTextEditingController,
+                      focusNode: tempuretureFocusNode,
+                    ),
                     RecordPostTags(tags: tags),
                     RecordPostMemo(
                       memo: memo,
-                      textEditingController: textEditingController,
-                      focusNode: focusNode,
+                      textEditingController: memoTextEditingController,
+                      focusNode: memoFocusNode,
                     ),
                   ].map((e) => _withContentSpacer(e)),
                 ],
               ),
             ),
-            if (focusNode.hasFocus) _keyboardToolbar(context, focusNode),
+            if (memoFocusNode.hasFocus)
+              _keyboardToolbar(context, memoFocusNode),
           ],
         ),
       ),

@@ -25,7 +25,9 @@ class RecordPostTempureture extends StatelessWidget {
     return SizedBox(
       height: 40,
       child: TextFormField(
-        onChanged: (text) {},
+        onChanged: (text) {
+          this.tempureture.value = double.parse(text.replaceAll(".", ""));
+        },
         inputFormatters: [
           FilteringTextInputFormatter.digitsOnly,
           FilteringTextInputFormatter.allow(RegExp(r'^3.+')),
