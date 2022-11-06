@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:taion/features/record_post/util.dart';
 
 class RecordPostTempureture extends StatelessWidget {
   final ValueNotifier<double?> tempureture;
@@ -22,27 +23,34 @@ class RecordPostTempureture extends StatelessWidget {
       }
     }
 
-    return SizedBox(
-      height: 40,
-      child: TextFormField(
-        onChanged: (text) {
-          this.tempureture.value = double.parse(text.replaceAll(".", ""));
-        },
-        inputFormatters: [
-          FilteringTextInputFormatter.digitsOnly,
-          FilteringTextInputFormatter.allow(RegExp(r'^3.+')),
-          FilteringTextInputFormatter.allow(RegExp(r'^4.+')),
-        ],
-        decoration: const InputDecoration(
-          hintText: "体温",
-          border: OutlineInputBorder(),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text("体温", style: secitonTitle),
+        const SizedBox(height: 8),
+        SizedBox(
+          height: 80,
+          child: TextFormField(
+            onChanged: (text) {
+              this.tempureture.value = double.parse(text.replaceAll(".", ""));
+            },
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+              FilteringTextInputFormatter.allow(RegExp(r'^3.+')),
+              FilteringTextInputFormatter.allow(RegExp(r'^4.+')),
+            ],
+            decoration: const InputDecoration(
+              hintText: "36.5",
+              border: OutlineInputBorder(),
+            ),
+            controller: textEditingController,
+            maxLines: 1,
+            maxLength: 4,
+            keyboardType: TextInputType.number,
+            focusNode: focusNode,
+          ),
         ),
-        controller: textEditingController,
-        maxLines: 1,
-        maxLength: 4,
-        keyboardType: TextInputType.number,
-        focusNode: focusNode,
-      ),
+      ],
     );
   }
 }

@@ -29,11 +29,10 @@ class RecordPostPage extends HookConsumerWidget {
     final takeTempertureDateTimeValue = takeTempertureDateTime.value;
 
     final tempuretureTextEditingController =
-        useTextEditingController(text: memo.value);
-    final tempuretureFocusNode = useFocusNode();
+        useTextEditingController(text: "${tempuretureValue ?? ""}");
     final memoTextEditingController =
         useTextEditingController(text: memo.value);
-    final memoFocusNode = useFocusNode();
+    final focusNode = useFocusNode();
 
     final scrollController = useScrollController();
     final offset =
@@ -43,10 +42,13 @@ class RecordPostPage extends HookConsumerWidget {
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         elevation: 0.0,
         leading: IconButton(
           icon: const Icon(Icons.close, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
         actions: [
           AppTextButton(
@@ -93,10 +95,11 @@ class RecordPostPage extends HookConsumerWidget {
               child: ListView(
                 controller: scrollController,
                 children: [
+                  const SizedBox(height: 20),
                   RecordPostTempureture(
                     tempureture: tempureture,
                     textEditingController: tempuretureTextEditingController,
-                    focusNode: tempuretureFocusNode,
+                    focusNode: focusNode,
                   ),
                   const SizedBox(height: 20),
                   RecordPostTags(tags: tags),
@@ -104,16 +107,13 @@ class RecordPostPage extends HookConsumerWidget {
                   RecordPostMemo(
                     memo: memo,
                     textEditingController: memoTextEditingController,
-                    focusNode: memoFocusNode,
+                    focusNode: focusNode,
                   ),
                   const SizedBox(height: 20),
                 ],
               ),
             ),
-            if (tempuretureFocusNode.hasFocus)
-              _keyboardToolbar(context, tempuretureFocusNode),
-            if (memoFocusNode.hasFocus)
-              _keyboardToolbar(context, memoFocusNode),
+            if (focusNode.hasFocus) _keyboardToolbar(context, focusNode),
           ],
         ),
       ),
@@ -145,9 +145,9 @@ class RecordPostPage extends HookConsumerWidget {
 }
 
 extension RecordPostPageRoute on RecordPostPage {
-  static Route<dynamic> route({required Record record}) {
+  static Route<dynamic> route({required Record? record}) {
     return MaterialPageRoute(
-      settings: const RouteSettings(name: "DiaryPostPage"),
+      settings: const RouteSettings(name: "RecordPostPage"),
       builder: (_) => RecordPostPage(
         record: record,
       ),

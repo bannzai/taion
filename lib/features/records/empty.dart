@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:taion/features/record_post/page.dart';
 import 'package:taion/style/color.dart';
 
 class RecordListEmpty extends StatelessWidget {
@@ -25,7 +26,10 @@ class RecordListEmpty extends StatelessWidget {
                 shape: BoxShape.circle,
               ),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context)
+                      .push(RecordPostPageRoute.route(record: null));
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColor.primary,
                   shape: const CircleBorder(),
