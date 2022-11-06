@@ -18,11 +18,13 @@ class RecordPostTempureture extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
         const Text("体温", style: secitonTitle),
         const SizedBox(height: 8),
         TextFormField(
           onChanged: (text) {
+            debugPrint("[DEBUG] $text");
             if (text.isEmpty) {
               tempertureture.value = null;
               return;

@@ -12,6 +12,7 @@ class RecordPostTags extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
       children: [
         const Text("体調詳細", style: secitonTitle),
         const SizedBox(height: 8),

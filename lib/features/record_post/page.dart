@@ -92,33 +92,29 @@ class RecordPostPage extends HookConsumerWidget {
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Expanded(
-              child: Padding(
+              child: ListView(
                 padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-                child: SingleChildScrollView(
-                  controller: scrollController,
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 20),
-                      RecordPostTempureture(
-                        tempertureture: tempertureture,
-                        textEditingController:
-                            temperturetureTextEditingController,
-                        focusNode: temperturetureFocusNode,
-                      ),
-                      const SizedBox(height: 20),
-                      RecordPostTags(tags: tags),
-                      const SizedBox(height: 20),
-                      RecordPostMemo(
-                        memo: memo,
-                        textEditingController: memoTextEditingController,
-                        focusNode: memoFocusNode,
-                      ),
-                      const SizedBox(height: 20),
-                    ],
+                controller: scrollController,
+                children: [
+                  const SizedBox(height: 20),
+                  RecordPostTempureture(
+                    tempertureture: tempertureture,
+                    textEditingController: temperturetureTextEditingController,
+                    focusNode: temperturetureFocusNode,
                   ),
-                ),
+                  const SizedBox(height: 20),
+                  RecordPostTags(tags: tags),
+                  const SizedBox(height: 20),
+                  RecordPostMemo(
+                    memo: memo,
+                    textEditingController: memoTextEditingController,
+                    focusNode: memoFocusNode,
+                  ),
+                  const SizedBox(height: 20),
+                ],
               ),
             ),
             if (memoFocusNode.hasFocus) ...[
@@ -136,24 +132,21 @@ class RecordPostPage extends HookConsumerWidget {
   }
 
   Widget _keyboardToolbar(BuildContext context, FocusNode focusNode) {
-    return Positioned(
-      bottom: MediaQuery.of(context).viewInsets.bottom,
-      child: Container(
-        height: keyboardToolbarHeight,
-        width: MediaQuery.of(context).size.width,
-        decoration: const BoxDecoration(color: Colors.black),
-        child: Row(
-          children: [
-            const Spacer(),
-            AppTextButton(
-              text: const Text('完了', style: TextStyle(color: AppColor.primary)),
-              onPressed: () async {
-                analytics.logEvent(name: "post_diary_done_button_pressed");
-                focusNode.unfocus();
-              },
-            ),
-          ],
-        ),
+    return Container(
+      height: keyboardToolbarHeight,
+      width: MediaQuery.of(context).size.width,
+      decoration: const BoxDecoration(color: Colors.black),
+      child: Row(
+        children: [
+          const Spacer(),
+          AppTextButton(
+            text: const Text('完了', style: TextStyle(color: AppColor.primary)),
+            onPressed: () async {
+              analytics.logEvent(name: "post_diary_done_button_pressed");
+              focusNode.unfocus();
+            },
+          ),
+        ],
       ),
     );
   }
