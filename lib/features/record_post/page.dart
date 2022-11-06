@@ -110,6 +110,8 @@ class RecordPostPage extends HookConsumerWidget {
                 ],
               ),
             ),
+            if (tempuretureFocusNode.hasFocus)
+              _keyboardToolbar(context, tempuretureFocusNode),
             if (memoFocusNode.hasFocus)
               _keyboardToolbar(context, memoFocusNode),
           ],
