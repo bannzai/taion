@@ -93,19 +93,20 @@ class RecordPostPage extends HookConsumerWidget {
               child: ListView(
                 controller: scrollController,
                 children: [
-                  ...[
-                    RecordPostTempureture(
-                      tempureture: tempureture,
-                      textEditingController: tempuretureTextEditingController,
-                      focusNode: tempuretureFocusNode,
-                    ),
-                    RecordPostTags(tags: tags),
-                    RecordPostMemo(
-                      memo: memo,
-                      textEditingController: memoTextEditingController,
-                      focusNode: memoFocusNode,
-                    ),
-                  ].map((e) => _withContentSpacer(e)),
+                  RecordPostTempureture(
+                    tempureture: tempureture,
+                    textEditingController: tempuretureTextEditingController,
+                    focusNode: tempuretureFocusNode,
+                  ),
+                  const SizedBox(height: 20),
+                  RecordPostTags(tags: tags),
+                  const SizedBox(height: 20),
+                  RecordPostMemo(
+                    memo: memo,
+                    textEditingController: memoTextEditingController,
+                    focusNode: memoFocusNode,
+                  ),
+                  const SizedBox(height: 20),
                 ],
               ),
             ),
@@ -114,13 +115,6 @@ class RecordPostPage extends HookConsumerWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _withContentSpacer(Widget content) {
-    return Container(
-      padding: const EdgeInsets.only(top: 10, bottom: 10),
-      child: content,
     );
   }
 
