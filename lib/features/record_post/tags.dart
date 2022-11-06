@@ -18,19 +18,19 @@ class RecordPostTags extends StatelessWidget {
         Wrap(
           spacing: 10,
           children: defaultTags.map((e) {
-            final isSelected = tags.value.contains(e);
+            isSelected() => tags.value.contains(e);
             return ChoiceChip(
               label: Text(e),
               labelStyle:
-                  TextStyle(color: isSelected ? Colors.white : Colors.grey),
+                  TextStyle(color: isSelected() ? Colors.white : Colors.grey),
               disabledColor: AppColor.secondaryBackground,
               selectedColor: AppColor.primary,
-              selected: isSelected,
+              selected: isSelected(),
               onSelected: (selected) {
-                if (isSelected) {
-                  tags.value.remove(e);
+                if (isSelected()) {
+                  tags.value = tags.value..remove(e);
                 } else {
-                  tags.value.add(e);
+                  tags.value = tags.value..add(e);
                 }
               },
             );
