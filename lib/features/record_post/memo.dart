@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:taion/features/record_post/util.dart';
+import 'package:taion/utility/random.dart';
 
 class RecordPostMemo extends StatelessWidget {
   final ValueNotifier<String> memo;
@@ -15,27 +17,42 @@ class RecordPostMemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const textLength = 120;
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        minWidth: MediaQuery.of(context).size.width,
-        maxWidth: MediaQuery.of(context).size.width,
-        minHeight: 40,
-        maxHeight: 200,
-      ),
-      child: TextFormField(
-        onChanged: (text) {
-          memo.value = text;
-        },
-        decoration: const InputDecoration(
-          hintText: "メモ",
-          border: OutlineInputBorder(),
+    final hintText = pickRandomElement<String>([
+      "酒を飲みすぎた",
+      "食べすぎた",
+      "歌いすぎた",
+      "寒中水泳やりすぎた",
+    ]);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Text("メモ", style: secitonTitle),
+        const SizedBox(height: 8),
+        ConstrainedBox(
+          constraints: BoxConstraints(
+            minWidth: MediaQuery.of(context).size.width,
+            maxWidth: MediaQuery.of(context).size.width,
+            minHeight: 80,
+            maxHeight: 200,
+          ),
+          child: TextFormField(
+            onChanged: (text) {
+              memo.value = text;
+            },
+            decoration: InputDecoration(
+              hintText: hintText,
+              border: const OutlineInputBorder(),
+            ),
+            controller: textEditingController,
+            maxLines: null,
+            maxLength: textLength,
+            keyboardType: TextInputType.multiline,
+            focusNode: focusNode,
+          ),
         ),
-        controller: textEditingController,
-        maxLines: null,
-        maxLength: textLength,
-        keyboardType: TextInputType.multiline,
-        focusNode: focusNode,
-      ),
+      ],
     );
   }
 }
