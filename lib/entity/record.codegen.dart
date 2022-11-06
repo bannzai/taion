@@ -27,3 +27,15 @@ class Record with _$Record {
 
   factory Record.fromJson(Map<String, dynamic> json) => _$RecordFromJson(json);
 }
+
+const List<String> defaultTags = [
+  "頭痛",
+  "喉の痛み",
+  "腹痛",
+  "吐き気",
+  "咳",
+  "くしゃみ",
+  "悪寒",
+  "関節痛",
+  "動悸",
+];
