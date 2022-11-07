@@ -19,7 +19,7 @@ class RecordPostTempertureDate extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: ElevatedButton(
+              child: OutlinedButton(
                 onPressed: () async {
                   final date = await showDatePicker(
                     context: context,
@@ -44,7 +44,7 @@ class RecordPostTempertureDate extends StatelessWidget {
             ),
             const SizedBox(width: 10),
             Expanded(
-              child: ElevatedButton(
+              child: OutlinedButton(
                 onPressed: () async {
                   final timeOfDay = await showTimePicker(
                     context: context,

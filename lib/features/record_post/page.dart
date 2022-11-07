@@ -56,7 +56,9 @@ class RecordPostPage extends HookConsumerWidget {
         ),
         actions: [
           AppTextButton(
-            text: const Text("保存", style: TextStyle(color: AppColor.primary)),
+            text: const Text("保存",
+                style: TextStyle(
+                    color: AppColor.primary, fontWeight: FontWeight.bold)),
             onPressed: temperturetureValue == null
                 ? null
                 : () async {
@@ -139,12 +141,14 @@ class RecordPostPage extends HookConsumerWidget {
     return Container(
       height: keyboardToolbarHeight,
       width: MediaQuery.of(context).size.width,
-      decoration: const BoxDecoration(color: Colors.black),
+      decoration: const BoxDecoration(color: AppColor.secondaryBackground),
       child: Row(
         children: [
           const Spacer(),
           AppTextButton(
-            text: const Text('完了', style: TextStyle(color: AppColor.primary)),
+            text: const Text('完了',
+                style: TextStyle(
+                    color: AppColor.primary, fontWeight: FontWeight.bold)),
             onPressed: () async {
               analytics.logEvent(name: "post_diary_done_button_pressed");
               focusNode.unfocus();
