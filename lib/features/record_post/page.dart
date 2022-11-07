@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:taion/entity/record.codegen.dart';
 import 'package:taion/features/record_post/memo.dart';
 import 'package:taion/features/record_post/tags.dart';
-import 'package:taion/features/record_post/tempureture.dart';
+import 'package:taion/features/record_post/temperture.dart';
 import 'package:taion/provider/record.dart';
 import 'package:taion/provider/user.dart';
 import 'package:taion/style/button.dart';
