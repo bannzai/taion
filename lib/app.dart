@@ -23,8 +23,14 @@ class App extends StatelessWidget {
             cursorColor: AppColor.primary,
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(AppColor.primary),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColor.primary,
+            ),
+          ),
+          outlinedButtonTheme: OutlinedButtonThemeData(
+            style: OutlinedButton.styleFrom(
+              side: const BorderSide(width: 1.0, color: AppColor.primary),
+              foregroundColor: AppColor.primary,
             ),
           ),
           appBarTheme: const AppBarTheme(
@@ -32,6 +38,15 @@ class App extends StatelessWidget {
               statusBarBrightness: Brightness.dark,
               statusBarIconBrightness: Brightness.dark,
               statusBarColor: Colors.white,
+            ),
+          ),
+        ).copyWith(
+          inputDecorationTheme: const InputDecorationTheme(
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 1,
+                color: AppColor.primary,
+              ),
             ),
           ),
         ),
