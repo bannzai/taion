@@ -18,71 +18,52 @@ class RecordPostTempertureDate extends StatelessWidget {
         const SizedBox(height: 8),
         Row(
           children: [
-            GestureDetector(
-              onTap: () async {
-                final date = await showDatePicker(
-                  context: context,
-                  initialDate: tempertureDate.value,
-                  firstDate: DateTime.parse("2020-01-01"),
-                  lastDate: DateTime.now(),
-                );
-                if (date == null) {
-                  return;
-                }
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () async {
+                  final date = await showDatePicker(
+                    context: context,
+                    initialDate: tempertureDate.value,
+                    firstDate: DateTime.parse("2020-01-01"),
+                    lastDate: DateTime.now(),
+                  );
+                  if (date == null) {
+                    return;
+                  }
 
-                tempertureDate.value = DateTime(
-                  date.year,
-                  date.month,
-                  date.day,
-                  tempertureDate.value.hour,
-                  tempertureDate.value.minute,
-                );
-              },
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                decoration: BoxDecoration(
-                  border: Border.all(),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                ),
-                child: Text(_date(),
-                    style: const TextStyle(
-                        color: AppColor.textMain, fontSize: 16)),
+                  tempertureDate.value = DateTime(
+                    date.year,
+                    date.month,
+                    date.day,
+                    tempertureDate.value.hour,
+                    tempertureDate.value.minute,
+                  );
+                },
+                child: Text(_date(), style: const TextStyle(fontSize: 16)),
               ),
             ),
             const SizedBox(width: 10),
-            GestureDetector(
-              onTap: () async {
-                final timeOfDay = await showTimePicker(
-                  context: context,
-                  initialTime: TimeOfDay.fromDateTime(tempertureDate.value),
-                );
-                if (timeOfDay == null) {
-                  return;
-                }
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () async {
+                  final timeOfDay = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.fromDateTime(tempertureDate.value),
+                    initialEntryMode: TimePickerEntryMode.input,
+                  );
+                  if (timeOfDay == null) {
+                    return;
+                  }
 
-                tempertureDate.value = DateTime(
-                  tempertureDate.value.year,
-                  tempertureDate.value.month,
-                  tempertureDate.value.day,
-                  timeOfDay.hour,
-                  timeOfDay.minute,
-                );
-              },
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                decoration: BoxDecoration(
-                  border: Border.all(),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                ),
-                child: Text(_time(),
-                    style: const TextStyle(
-                        color: AppColor.textMain, fontSize: 16)),
+                  tempertureDate.value = DateTime(
+                    tempertureDate.value.year,
+                    tempertureDate.value.month,
+                    tempertureDate.value.day,
+                    timeOfDay.hour,
+                    timeOfDay.minute,
+                  );
+                },
+                child: Text(_time(), style: const TextStyle(fontSize: 16)),
               ),
             ),
           ],
@@ -93,5 +74,6 @@ class RecordPostTempertureDate extends StatelessWidget {
 
   String _date() => DateFormat(DateFormat.YEAR_MONTH_DAY, "ja_JP")
       .format(tempertureDate.value);
-  String _time() => DateFormat.Hms().format(tempertureDate.value);
+  String _time() =>
+      DateFormat(DateFormat.HOUR_MINUTE, "ja_JP").format(tempertureDate.value);
 }
