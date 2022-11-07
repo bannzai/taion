@@ -48,11 +48,11 @@ class RecordListBody extends StatelessWidget {
                 Row(
                   children: [
                     Text(_dateTime(record.takeTempertureDateTime),
-                        style:
-                            const TextStyle(color: AppColor.textMain, fontSize: 14)),
+                        style: const TextStyle(
+                            color: AppColor.textMain, fontSize: 14)),
                     Text("${record.temperature}",
-                        style:
-                            const TextStyle(color: AppColor.textMain, fontSize: 14)),
+                        style: const TextStyle(
+                            color: AppColor.textMain, fontSize: 14)),
                   ],
                 ),
               Positioned(
@@ -72,8 +72,6 @@ class RecordListBody extends StatelessWidget {
   }
 
   static String _dateTime(DateTime dateTime) {
-    return DateFormat(DateFormat.YEAR_MONTH_WEEKDAY_DAY, "ja_JP")
-            .format(dateTime) +
-        DateFormat.jms().format(dateTime);
+    return "${DateFormat(DateFormat.YEAR_MONTH_DAY, "ja_JP").format(dateTime)} ${DateFormat.Hms().format(dateTime)}";
   }
 }
