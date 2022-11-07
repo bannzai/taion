@@ -22,6 +22,11 @@ class App extends StatelessWidget {
           textSelectionTheme: const TextSelectionThemeData(
             cursorColor: AppColor.primary,
           ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(AppColor.primary),
+            ),
+          ),
           appBarTheme: const AppBarTheme(
             systemOverlayStyle: SystemUiOverlayStyle(
               statusBarBrightness: Brightness.dark,
