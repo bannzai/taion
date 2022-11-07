@@ -24,7 +24,8 @@ class RecordPostPage extends HookConsumerWidget {
     final tempertureture = useState(record?.temperature);
     final tags = useState(record?.tags ?? []);
     final memo = useState(record?.memo ?? "");
-    final takeTempertureDateTime = useState(record?.takeTempertureDateTime);
+    final takeTempertureDateTime =
+        useState(record?.takeTempertureDateTime ?? DateTime.now());
     final temperturetureValue = tempertureture.value;
     final takeTempertureDateTimeValue = takeTempertureDateTime.value;
 
@@ -55,8 +56,7 @@ class RecordPostPage extends HookConsumerWidget {
         actions: [
           AppTextButton(
             text: const Text("保存", style: TextStyle(color: AppColor.primary)),
-            onPressed: temperturetureValue == null ||
-                    takeTempertureDateTimeValue == null
+            onPressed: temperturetureValue == null
                 ? null
                 : () async {
                     final record = this.record;
