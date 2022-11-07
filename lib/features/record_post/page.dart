@@ -5,6 +5,7 @@ import 'package:taion/entity/record.codegen.dart';
 import 'package:taion/features/record_post/memo.dart';
 import 'package:taion/features/record_post/tags.dart';
 import 'package:taion/features/record_post/temperture.dart';
+import 'package:taion/features/record_post/temperture_date.dart';
 import 'package:taion/provider/record.dart';
 import 'package:taion/provider/user.dart';
 import 'package:taion/style/button.dart';
@@ -105,6 +106,9 @@ class RecordPostPage extends HookConsumerWidget {
                     textEditingController: temperturetureTextEditingController,
                     focusNode: temperturetureFocusNode,
                   ),
+                  const SizedBox(height: 20),
+                  RecordPostTempertureDate(
+                      tempertureDate: takeTempertureDateTime),
                   const SizedBox(height: 20),
                   RecordPostTags(tags: tags),
                   const SizedBox(height: 20),
