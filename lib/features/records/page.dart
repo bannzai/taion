@@ -54,10 +54,7 @@ class RecordListBody extends HookConsumerWidget {
       body: SafeArea(
         child: Column(
           children: [
-            Text(
-              _month(dateForMonth.value),
-              style: const TextStyle(fontSize: 16),
-            ),
+            MonthHeader(dateForMonth: dateForMonth),
             const SizedBox(height: 12),
             Expanded(
               child: ListView(
@@ -136,11 +133,47 @@ class RecordListBody extends HookConsumerWidget {
     final lastDay = DateTime(dateForMonth.year, dateForMonth.month + 1, 0).day;
     return List.generate(lastDay, (index) => index + 1);
   }
-
-  String _month(DateTime tempertureDate) =>
-      DateFormat(DateFormat.MONTH, "ja_JP").format(tempertureDate);
-  String _day(DateTime tempertureDate) =>
-      DateFormat(DateFormat.DAY, "ja_JP").format(tempertureDate);
-  String _time(DateTime tempertureDate) =>
-      DateFormat(DateFormat.HOUR_MINUTE, "ja_JP").format(tempertureDate);
 }
+
+class MonthHeader extends StatelessWidget {
+  final ValueNotifier<DateTime> dateForMonth;
+  const MonthHeader({super.key, required this.dateForMonth});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        children: [
+          const Spacer(flex: 1),
+          IconButton(
+              onPressed: () {
+                dateForMonth.value = DateTime(dateForMonth.value.year,
+                    dateForMonth.value.month - 1, dateForMonth.value.day);
+              },
+              icon: const Icon(Icons.arrow_left)),
+          const Spacer(flex: 2),
+          Text(
+            _month(dateForMonth.value),
+            style: const TextStyle(fontSize: 16),
+          ),
+          const Spacer(flex: 2),
+          IconButton(
+              onPressed: () {
+                dateForMonth.value = DateTime(dateForMonth.value.year,
+                    dateForMonth.value.month + 1, dateForMonth.value.day);
+              },
+              icon: const Icon(Icons.arrow_right_outlined)),
+          const Spacer(flex: 1),
+        ],
+      ),
+    );
+  }
+}
+
+String _month(DateTime tempertureDate) =>
+    DateFormat(DateFormat.MONTH, "ja_JP").format(tempertureDate);
+String _day(DateTime tempertureDate) =>
+    DateFormat(DateFormat.DAY, "ja_JP").format(tempertureDate);
+String _time(DateTime tempertureDate) =>
+    DateFormat(DateFormat.HOUR_MINUTE, "ja_JP").format(tempertureDate);
