@@ -52,63 +52,68 @@ class RecordListBody extends HookConsumerWidget {
         ),
       ]),
       body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
-          shrinkWrap: true,
+        child: Column(
           children: [
             Text(
               _month(dateForMonth.value),
               style: const TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 12),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                for (final day in _days(dateForMonth.value)) ...[
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "$day",
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          for (final record in _filterRecords(
-                              dateForMonth: dateForMonth.value, day: day)) ...[
-                            Row(
-                              children: [
-                                Text(
-                                  _time(record.takeTempertureDateTime),
-                                  style: const TextStyle(
-                                    color: AppColor.textMain,
-                                    fontSize: 14,
-                                  ),
+            Expanded(
+              child: ListView(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
+                shrinkWrap: true,
+                children: [
+                  for (final day in _days(dateForMonth.value)) ...[
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 30,
+                          child: Text(
+                            "$day",
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              for (final record in _filterRecords(
+                                  dateForMonth: dateForMonth.value,
+                                  day: day)) ...[
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text(
+                                      _time(record.takeTempertureDateTime),
+                                      style: const TextStyle(
+                                        color: AppColor.textMain,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      "${record.temperature}",
+                                      style: const TextStyle(
+                                        color: AppColor.textMain,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  "${record.temperature}",
-                                  style: const TextStyle(
-                                    color: AppColor.textMain,
-                                    fontSize: 14,
-                                  ),
+                                const Divider(
+                                  color: Colors.red,
                                 ),
                               ],
-                            ),
-                            const Divider(
-                              color: Colors.red,
-                            ),
-                          ],
-                        ],
-                      ),
-                      const Spacer(),
-                    ],
-                  ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ],
-              ],
+              ),
             ),
           ],
         ),
