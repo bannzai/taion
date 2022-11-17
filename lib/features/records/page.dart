@@ -1,3 +1,4 @@
+import 'package:async_value_group/async_value_group.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,7 +10,6 @@ import 'package:taion/features/records/empty.dart';
 import 'package:taion/provider/record.dart';
 import 'package:taion/provider/user.dart';
 import 'package:taion/style/color.dart';
-import 'package:taion/utility/async_value_group.dart';
 
 class RecordListPage extends HookConsumerWidget {
   const RecordListPage({Key? key}) : super(key: key);
@@ -20,9 +20,9 @@ class RecordListPage extends HookConsumerWidget {
       ref.watch(recordsProvider),
       ref.watch(userProvider),
     ).when(
-      data: (t) => t.a1.isEmpty
+      data: (t) => t.t1.isEmpty
           ? const RecordListEmpty()
-          : RecordListBody(records: t.a1, user: t.a2),
+          : RecordListBody(records: t.t1, user: t.t2),
       error: (error, st) =>
           ErrorPage(error: error, reload: () => ref.refresh(recordsProvider)),
       loading: () => const CircularProgressIndicator(),
