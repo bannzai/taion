@@ -27,6 +27,7 @@ class App extends StatelessWidget {
               textStyle: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
+              foregroundColor: AppColor.primary,
               disabledForegroundColor: Colors.grey,
               backgroundColor: Colors.transparent,
               padding: EdgeInsets.zero,
