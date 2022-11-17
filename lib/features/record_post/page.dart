@@ -56,9 +56,7 @@ class RecordPostPage extends HookConsumerWidget {
         ),
         actions: [
           AppTextButton(
-            text: const Text("保存",
-                style: TextStyle(
-                    color: AppColor.primary, fontWeight: FontWeight.bold)),
+            text: const Text("保存"),
             onPressed: temperturetureValue == null
                 ? null
                 : () async {
