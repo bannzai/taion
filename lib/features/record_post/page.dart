@@ -4,8 +4,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:taion/entity/record.codegen.dart';
 import 'package:taion/features/record_post/memo.dart';
 import 'package:taion/features/record_post/tags.dart';
-import 'package:taion/features/record_post/temperture.dart';
-import 'package:taion/features/record_post/temperture_date.dart';
+import 'package:taion/features/record_post/temperature.dart';
+import 'package:taion/features/record_post/temperature_date.dart';
 import 'package:taion/provider/record.dart';
 import 'package:taion/provider/user.dart';
 import 'package:taion/style/button.dart';
@@ -22,19 +22,19 @@ class RecordPostPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final userID = ref.watch(mustUserIDProvider);
     final setRecord = ref.watch(setRecordProvider);
-    final tempertureture = useState(record?.temperature);
+    final temperature = useState(record?.temperature);
     final tags = useState(record?.tags ?? []);
     final memo = useState(record?.memo ?? "");
     final takeTemperatureDateTime =
         useState(record?.takeTemperatureDateTime ?? DateTime.now());
-    final temperturetureValue = tempertureture.value;
+    final temperatureValue = temperature.value;
     final takeTemperatureDateTimeValue = takeTemperatureDateTime.value;
 
-    final temperturetureTextEditingController =
-        useTextEditingController(text: "${temperturetureValue ?? ""}");
+    final temperatureTextEditingController =
+        useTextEditingController(text: "${temperatureValue ?? ""}");
     final memoTextEditingController =
         useTextEditingController(text: memo.value);
-    final temperturetureFocusNode = useFocusNode();
+    final temperatureFocusNode = useFocusNode();
     final memoFocusNode = useFocusNode();
 
     final scrollController = useScrollController();
@@ -57,7 +57,7 @@ class RecordPostPage extends HookConsumerWidget {
         actions: [
           AppTextButton(
             text: const Text("保存"),
-            onPressed: temperturetureValue == null
+            onPressed: temperatureValue == null
                 ? null
                 : () async {
                     final record = this.record;
@@ -67,7 +67,7 @@ class RecordPostPage extends HookConsumerWidget {
                           memo: memo.value,
                           tags: tags.value,
                           takeTemperatureDateTime: takeTemperatureDateTimeValue,
-                          temperature: temperturetureValue,
+                          temperature: temperatureValue,
                         ),
                         userID: userID,
                       );
@@ -75,7 +75,7 @@ class RecordPostPage extends HookConsumerWidget {
                       await setRecord(
                         Record(
                           id: null,
-                          temperature: temperturetureValue,
+                          temperature: temperatureValue,
                           tags: tags.value,
                           memo: memo.value,
                           takeTemperatureDateTime: takeTemperatureDateTimeValue,
@@ -101,14 +101,14 @@ class RecordPostPage extends HookConsumerWidget {
                 controller: scrollController,
                 children: [
                   const SizedBox(height: 20),
-                  RecordPostTempureture(
-                    tempertureture: tempertureture,
-                    textEditingController: temperturetureTextEditingController,
-                    focusNode: temperturetureFocusNode,
+                  RecordPostTempurature(
+                    temperature: temperature,
+                    textEditingController: temperatureTextEditingController,
+                    focusNode: temperatureFocusNode,
                   ),
                   const SizedBox(height: 20),
-                  RecordPostTempertureDate(
-                      tempertureDate: takeTemperatureDateTime),
+                  RecordPostTemperatureDate(
+                      temperatureDate: takeTemperatureDateTime),
                   const SizedBox(height: 20),
                   RecordPostTags(tags: tags),
                   const SizedBox(height: 20),
@@ -125,8 +125,8 @@ class RecordPostPage extends HookConsumerWidget {
               _keyboardToolbar(context, memoFocusNode),
               SizedBox(height: offset),
             ],
-            if (temperturetureFocusNode.hasFocus) ...[
-              _keyboardToolbar(context, temperturetureFocusNode),
+            if (temperatureFocusNode.hasFocus) ...[
+              _keyboardToolbar(context, temperatureFocusNode),
               SizedBox(height: offset),
             ],
           ],

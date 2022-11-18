@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:taion/features/record_post/util.dart';
 
-class RecordPostTempureture extends StatelessWidget {
-  final ValueNotifier<double?> tempertureture;
+class RecordPostTempurature extends StatelessWidget {
+  final ValueNotifier<double?> temperature;
   final TextEditingController textEditingController;
   final FocusNode focusNode;
 
-  const RecordPostTempureture({
+  const RecordPostTempurature({
     super.key,
-    required this.tempertureture,
+    required this.temperature,
     required this.textEditingController,
     required this.focusNode,
   });
@@ -26,10 +26,10 @@ class RecordPostTempureture extends StatelessWidget {
           onChanged: (text) {
             debugPrint("[DEBUG] $text");
             if (text.isEmpty) {
-              tempertureture.value = null;
+              temperature.value = null;
               return;
             }
-            tempertureture.value = double.parse(text.replaceAll(".", ""));
+            temperature.value = double.parse(text.replaceAll(".", ""));
           },
           inputFormatters: [
             FilteringTextInputFormatter.digitsOnly,

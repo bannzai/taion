@@ -3,10 +3,10 @@ import 'package:intl/intl.dart';
 import 'package:taion/features/record_post/util.dart';
 import 'package:taion/style/color.dart';
 
-class RecordPostTempertureDate extends StatelessWidget {
-  final ValueNotifier<DateTime> tempertureDate;
+class RecordPostTemperatureDate extends StatelessWidget {
+  final ValueNotifier<DateTime> temperatureDate;
 
-  const RecordPostTempertureDate({super.key, required this.tempertureDate});
+  const RecordPostTemperatureDate({super.key, required this.temperatureDate});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class RecordPostTempertureDate extends StatelessWidget {
                 onPressed: () async {
                   final date = await showDatePicker(
                     context: context,
-                    initialDate: tempertureDate.value,
+                    initialDate: temperatureDate.value,
                     firstDate: DateTime.parse("2020-01-01"),
                     lastDate: DateTime.now(),
                   );
@@ -31,12 +31,12 @@ class RecordPostTempertureDate extends StatelessWidget {
                     return;
                   }
 
-                  tempertureDate.value = DateTime(
+                  temperatureDate.value = DateTime(
                     date.year,
                     date.month,
                     date.day,
-                    tempertureDate.value.hour,
-                    tempertureDate.value.minute,
+                    temperatureDate.value.hour,
+                    temperatureDate.value.minute,
                   );
                 },
                 child: Text(_date(), style: const TextStyle(fontSize: 16)),
@@ -48,17 +48,17 @@ class RecordPostTempertureDate extends StatelessWidget {
                 onPressed: () async {
                   final timeOfDay = await showTimePicker(
                     context: context,
-                    initialTime: TimeOfDay.fromDateTime(tempertureDate.value),
+                    initialTime: TimeOfDay.fromDateTime(temperatureDate.value),
                     initialEntryMode: TimePickerEntryMode.input,
                   );
                   if (timeOfDay == null) {
                     return;
                   }
 
-                  tempertureDate.value = DateTime(
-                    tempertureDate.value.year,
-                    tempertureDate.value.month,
-                    tempertureDate.value.day,
+                  temperatureDate.value = DateTime(
+                    temperatureDate.value.year,
+                    temperatureDate.value.month,
+                    temperatureDate.value.day,
                     timeOfDay.hour,
                     timeOfDay.minute,
                   );
@@ -73,7 +73,7 @@ class RecordPostTempertureDate extends StatelessWidget {
   }
 
   String _date() => DateFormat(DateFormat.YEAR_MONTH_DAY, "ja_JP")
-      .format(tempertureDate.value);
+      .format(temperatureDate.value);
   String _time() =>
-      DateFormat(DateFormat.HOUR_MINUTE, "ja_JP").format(tempertureDate.value);
+      DateFormat(DateFormat.HOUR_MINUTE, "ja_JP").format(temperatureDate.value);
 }
