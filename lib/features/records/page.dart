@@ -95,31 +95,7 @@ class RecordListBody extends HookConsumerWidget {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   for (final record in filtered) ...[
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 12, vertical: 12),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Text(
-                                            _time(
-                                                record.takeTemperatureDateTime),
-                                            style: const TextStyle(
-                                              color: AppColor.textMain,
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                          const Spacer(),
-                                          Text(
-                                            "${record.temperature}",
-                                            style: const TextStyle(
-                                              color: AppColor.textMain,
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                    RecordListItem(record: record),
                                     const Divider(
                                       height: 1,
                                       color: Colors.black,
@@ -156,6 +132,47 @@ class RecordListBody extends HookConsumerWidget {
   List<int> _days(DateTime dateForMonth) {
     final lastDay = DateTime(dateForMonth.year, dateForMonth.month + 1, 0).day;
     return List.generate(lastDay, (index) => index + 1);
+  }
+}
+
+class RecordListItem extends StatelessWidget {
+  const RecordListItem({
+    Key? key,
+    required this.record,
+  }) : super(key: key);
+
+  final Record record;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(RecordPostPageRoute.route(record: record));
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Text(
+              _time(record.takeTemperatureDateTime),
+              style: const TextStyle(
+                color: AppColor.textMain,
+                fontSize: 14,
+              ),
+            ),
+            const Spacer(),
+            Text(
+              "${record.temperature}",
+              style: const TextStyle(
+                color: AppColor.textMain,
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
