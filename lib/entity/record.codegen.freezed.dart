@@ -28,7 +28,7 @@ class _$RecordTearOff {
       required List<String> tags,
       required String memo,
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
-          required DateTime takeTempertureDateTime,
+          required DateTime takeTemperatureDateTime,
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
           required DateTime createdDateTime}) {
     return _Record(
@@ -36,7 +36,7 @@ class _$RecordTearOff {
       temperature: temperature,
       tags: tags,
       memo: memo,
-      takeTempertureDateTime: takeTempertureDateTime,
+      takeTemperatureDateTime: takeTemperatureDateTime,
       createdDateTime: createdDateTime,
     );
   }
@@ -58,7 +58,7 @@ mixin _$Record {
   @JsonKey(
       fromJson: NonNullTimestampConverter.timestampToDateTime,
       toJson: NonNullTimestampConverter.dateTimeToTimestamp)
-  DateTime get takeTempertureDateTime => throw _privateConstructorUsedError;
+  DateTime get takeTemperatureDateTime => throw _privateConstructorUsedError;
   @JsonKey(
       fromJson: NonNullTimestampConverter.timestampToDateTime,
       toJson: NonNullTimestampConverter.dateTimeToTimestamp)
@@ -79,7 +79,7 @@ abstract class $RecordCopyWith<$Res> {
       List<String> tags,
       String memo,
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
-          DateTime takeTempertureDateTime,
+          DateTime takeTemperatureDateTime,
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
           DateTime createdDateTime});
 }
@@ -98,7 +98,7 @@ class _$RecordCopyWithImpl<$Res> implements $RecordCopyWith<$Res> {
     Object? temperature = freezed,
     Object? tags = freezed,
     Object? memo = freezed,
-    Object? takeTempertureDateTime = freezed,
+    Object? takeTemperatureDateTime = freezed,
     Object? createdDateTime = freezed,
   }) {
     return _then(_value.copyWith(
@@ -118,9 +118,9 @@ class _$RecordCopyWithImpl<$Res> implements $RecordCopyWith<$Res> {
           ? _value.memo
           : memo // ignore: cast_nullable_to_non_nullable
               as String,
-      takeTempertureDateTime: takeTempertureDateTime == freezed
-          ? _value.takeTempertureDateTime
-          : takeTempertureDateTime // ignore: cast_nullable_to_non_nullable
+      takeTemperatureDateTime: takeTemperatureDateTime == freezed
+          ? _value.takeTemperatureDateTime
+          : takeTemperatureDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
       createdDateTime: createdDateTime == freezed
           ? _value.createdDateTime
@@ -141,7 +141,7 @@ abstract class _$RecordCopyWith<$Res> implements $RecordCopyWith<$Res> {
       List<String> tags,
       String memo,
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
-          DateTime takeTempertureDateTime,
+          DateTime takeTemperatureDateTime,
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
           DateTime createdDateTime});
 }
@@ -161,7 +161,7 @@ class __$RecordCopyWithImpl<$Res> extends _$RecordCopyWithImpl<$Res>
     Object? temperature = freezed,
     Object? tags = freezed,
     Object? memo = freezed,
-    Object? takeTempertureDateTime = freezed,
+    Object? takeTemperatureDateTime = freezed,
     Object? createdDateTime = freezed,
   }) {
     return _then(_Record(
@@ -181,9 +181,9 @@ class __$RecordCopyWithImpl<$Res> extends _$RecordCopyWithImpl<$Res>
           ? _value.memo
           : memo // ignore: cast_nullable_to_non_nullable
               as String,
-      takeTempertureDateTime: takeTempertureDateTime == freezed
-          ? _value.takeTempertureDateTime
-          : takeTempertureDateTime // ignore: cast_nullable_to_non_nullable
+      takeTemperatureDateTime: takeTemperatureDateTime == freezed
+          ? _value.takeTemperatureDateTime
+          : takeTemperatureDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
       createdDateTime: createdDateTime == freezed
           ? _value.createdDateTime
@@ -203,7 +203,7 @@ class _$_Record implements _Record {
       required this.tags,
       required this.memo,
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
-          required this.takeTempertureDateTime,
+          required this.takeTemperatureDateTime,
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
           required this.createdDateTime});
 
@@ -222,7 +222,7 @@ class _$_Record implements _Record {
   @JsonKey(
       fromJson: NonNullTimestampConverter.timestampToDateTime,
       toJson: NonNullTimestampConverter.dateTimeToTimestamp)
-  final DateTime takeTempertureDateTime;
+  final DateTime takeTemperatureDateTime;
   @override
   @JsonKey(
       fromJson: NonNullTimestampConverter.timestampToDateTime,
@@ -231,7 +231,7 @@ class _$_Record implements _Record {
 
   @override
   String toString() {
-    return 'Record(id: $id, temperature: $temperature, tags: $tags, memo: $memo, takeTempertureDateTime: $takeTempertureDateTime, createdDateTime: $createdDateTime)';
+    return 'Record(id: $id, temperature: $temperature, tags: $tags, memo: $memo, takeTemperatureDateTime: $takeTemperatureDateTime, createdDateTime: $createdDateTime)';
   }
 
   @override
@@ -244,8 +244,8 @@ class _$_Record implements _Record {
                 .equals(other.temperature, temperature) &&
             const DeepCollectionEquality().equals(other.tags, tags) &&
             const DeepCollectionEquality().equals(other.memo, memo) &&
-            const DeepCollectionEquality()
-                .equals(other.takeTempertureDateTime, takeTempertureDateTime) &&
+            const DeepCollectionEquality().equals(
+                other.takeTemperatureDateTime, takeTemperatureDateTime) &&
             const DeepCollectionEquality()
                 .equals(other.createdDateTime, createdDateTime));
   }
@@ -257,7 +257,7 @@ class _$_Record implements _Record {
       const DeepCollectionEquality().hash(temperature),
       const DeepCollectionEquality().hash(tags),
       const DeepCollectionEquality().hash(memo),
-      const DeepCollectionEquality().hash(takeTempertureDateTime),
+      const DeepCollectionEquality().hash(takeTemperatureDateTime),
       const DeepCollectionEquality().hash(createdDateTime));
 
   @JsonKey(ignore: true)
@@ -278,7 +278,7 @@ abstract class _Record implements Record {
       required List<String> tags,
       required String memo,
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
-          required DateTime takeTempertureDateTime,
+          required DateTime takeTemperatureDateTime,
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
           required DateTime createdDateTime}) = _$_Record;
 
@@ -296,7 +296,7 @@ abstract class _Record implements Record {
   @JsonKey(
       fromJson: NonNullTimestampConverter.timestampToDateTime,
       toJson: NonNullTimestampConverter.dateTimeToTimestamp)
-  DateTime get takeTempertureDateTime;
+  DateTime get takeTemperatureDateTime;
   @override
   @JsonKey(
       fromJson: NonNullTimestampConverter.timestampToDateTime,
