@@ -50,6 +50,7 @@ dependencies:
   freezed_annotation: ^1.1.0
   flutter_svg: ^1.1.6
   async_value_group: ^1.0.0
+  sticky_headers: ^0.3.0+2
 
 dev_dependencies:
   flutter_test:
