@@ -7,6 +7,7 @@ import 'package:sticky_headers/sticky_headers.dart';
 import 'package:taion/entity/record.codegen.dart';
 import 'package:taion/entity/user.codegen.dart';
 import 'package:taion/features/error/page.dart';
+import 'package:taion/features/record_post/page.dart';
 import 'package:taion/features/records/empty.dart';
 import 'package:taion/provider/record.dart';
 import 'package:taion/provider/user.dart';
@@ -52,6 +53,12 @@ class RecordListBody extends HookConsumerWidget {
             },
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          Navigator.of(context).push(RecordPostPageRoute.route(record: null));
+        },
       ),
       body: SafeArea(
         child: Column(
@@ -113,11 +120,11 @@ class RecordListBody extends HookConsumerWidget {
                                         ],
                                       ),
                                     ),
+                                    const Divider(
+                                      height: 1,
+                                      color: Colors.black,
+                                    ),
                                   ],
-                                  const Divider(
-                                    height: 1,
-                                    color: Colors.black,
-                                  ),
                                 ],
                               ),
                             ),
