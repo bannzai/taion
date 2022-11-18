@@ -179,7 +179,7 @@ class MonthHeader extends StatelessWidget {
               icon: const Icon(Icons.arrow_left)),
           const Spacer(flex: 2),
           Text(
-            _month(dateForMonth.value),
+            _yearMonth(dateForMonth.value),
             style: const TextStyle(fontSize: 16),
           ),
           const Spacer(flex: 2),
@@ -196,8 +196,8 @@ class MonthHeader extends StatelessWidget {
   }
 }
 
-String _month(DateTime tempertureDate) =>
-    DateFormat(DateFormat.MONTH, "ja_JP").format(tempertureDate);
+String _yearMonth(DateTime tempertureDate) =>
+    DateFormat(DateFormat.YEAR_MONTH, "ja_JP").format(tempertureDate);
 String _weekday(DateTime date) =>
     DateFormat(DateFormat.ABBR_WEEKDAY, "ja_JP").format(date);
 String _time(DateTime tempertureDate) =>
