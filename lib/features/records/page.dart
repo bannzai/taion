@@ -55,7 +55,6 @@ class RecordListBody extends HookConsumerWidget {
         child: Column(
           children: [
             MonthHeader(dateForMonth: dateForMonth),
-            const SizedBox(height: 12),
             Expanded(
               child: ListView(
                 padding:
