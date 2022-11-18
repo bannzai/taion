@@ -42,21 +42,22 @@ class RecordListBody extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final dateForMonth = useState(DateTime.now());
     return Scaffold(
-      appBar: AppBar(actions: [
-        IconButton(
-          icon: const Icon(Icons.settings),
-          onPressed: () {
-            // Navigator.of(context).push(UserPageRoute.route());
-          },
-        ),
-      ]),
+      appBar: AppBar(
+        title: MonthHeader(dateForMonth: dateForMonth),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              // Navigator.of(context).push(UserPageRoute.route());
+            },
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Column(
           children: [
-            MonthHeader(dateForMonth: dateForMonth),
             Expanded(
               child: ListView(
-                padding: const EdgeInsets.symmetric(vertical: 12),
                 shrinkWrap: true,
                 children: [
                   for (final day in _days(dateForMonth.value)) ...[
@@ -65,9 +66,6 @@ class RecordListBody extends HookConsumerWidget {
                         dateForMonth: dateForMonth.value,
                         day: day,
                       );
-                      if (filtered.isEmpty) {
-                        return Container();
-                      }
 
                       return Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,8 +161,9 @@ class MonthHeader extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Spacer(flex: 1),
+          const Spacer(flex: 2),
           IconButton(
               onPressed: () {
                 dateForMonth.value = DateTime(dateForMonth.value.year,
