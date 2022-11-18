@@ -146,6 +146,7 @@ class RecordListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      behavior: HitTestBehavior.translucent,
       onTap: () {
         Navigator.of(context).push(RecordPostPageRoute.route(record: record));
       },
