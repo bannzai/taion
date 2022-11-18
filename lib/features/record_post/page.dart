@@ -25,10 +25,10 @@ class RecordPostPage extends HookConsumerWidget {
     final tempertureture = useState(record?.temperature);
     final tags = useState(record?.tags ?? []);
     final memo = useState(record?.memo ?? "");
-    final takeTempertureDateTime =
-        useState(record?.takeTempertureDateTime ?? DateTime.now());
+    final takeTemperatureDateTime =
+        useState(record?.takeTemperatureDateTime ?? DateTime.now());
     final temperturetureValue = tempertureture.value;
-    final takeTempertureDateTimeValue = takeTempertureDateTime.value;
+    final takeTemperatureDateTimeValue = takeTemperatureDateTime.value;
 
     final temperturetureTextEditingController =
         useTextEditingController(text: "${temperturetureValue ?? ""}");
@@ -66,7 +66,7 @@ class RecordPostPage extends HookConsumerWidget {
                         record.copyWith(
                           memo: memo.value,
                           tags: tags.value,
-                          takeTempertureDateTime: takeTempertureDateTimeValue,
+                          takeTemperatureDateTime: takeTemperatureDateTimeValue,
                           temperature: temperturetureValue,
                         ),
                         userID: userID,
@@ -78,7 +78,7 @@ class RecordPostPage extends HookConsumerWidget {
                           temperature: temperturetureValue,
                           tags: tags.value,
                           memo: memo.value,
-                          takeTempertureDateTime: takeTempertureDateTimeValue,
+                          takeTemperatureDateTime: takeTemperatureDateTimeValue,
                           createdDateTime: DateTime.now(),
                         ),
                         userID: userID,
@@ -108,7 +108,7 @@ class RecordPostPage extends HookConsumerWidget {
                   ),
                   const SizedBox(height: 20),
                   RecordPostTempertureDate(
-                      tempertureDate: takeTempertureDateTime),
+                      tempertureDate: takeTemperatureDateTime),
                   const SizedBox(height: 20),
                   RecordPostTags(tags: tags),
                   const SizedBox(height: 20),

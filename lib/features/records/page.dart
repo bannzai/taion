@@ -103,7 +103,7 @@ class RecordListBody extends HookConsumerWidget {
                                         children: [
                                           Text(
                                             _time(
-                                                record.takeTempertureDateTime),
+                                                record.takeTemperatureDateTime),
                                             style: const TextStyle(
                                               color: AppColor.textMain,
                                               fontSize: 14,
@@ -148,7 +148,7 @@ class RecordListBody extends HookConsumerWidget {
   }) =>
       records
           .where((element) => isSameDay(
-                element.takeTempertureDateTime,
+                element.takeTemperatureDateTime,
                 DateTime(dateForMonth.year, dateForMonth.month, day),
               ))
           .toList();
