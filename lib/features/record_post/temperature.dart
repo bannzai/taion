@@ -24,12 +24,14 @@ class RecordPostTempurature extends StatelessWidget {
         const SizedBox(height: 8),
         TextFormField(
           onChanged: (text) {
-            debugPrint("[DEBUG] $text");
+            debugPrint("[DEBUG] text:$text");
             if (text.isEmpty) {
               temperature.value = null;
               return;
             }
-            temperature.value = double.parse(text.replaceAll(".", ""));
+            final doubleTemperature = double.parse(text);
+            debugPrint("[DEBUG] doubleTemperature:$doubleTemperature");
+            temperature.value = doubleTemperature;
           },
           inputFormatters: [
             FilteringTextInputFormatter.digitsOnly,
