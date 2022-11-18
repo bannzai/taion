@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:sticky_headers/sticky_headers.dart';
 import 'package:taion/entity/record.codegen.dart';
 import 'package:taion/entity/user.codegen.dart';
 import 'package:taion/features/error/page.dart';
@@ -55,56 +56,77 @@ class RecordListBody extends HookConsumerWidget {
             MonthHeader(dateForMonth: dateForMonth),
             Expanded(
               child: ListView(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
+                padding: const EdgeInsets.symmetric(vertical: 12),
                 shrinkWrap: true,
                 children: [
                   for (final day in _days(dateForMonth.value)) ...[
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 30,
-                          child: Text(
-                            "$day",
-                            style: const TextStyle(fontSize: 16),
-                          ),
-                        ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              for (final record in _filterRecords(
-                                  dateForMonth: dateForMonth.value,
-                                  day: day)) ...[
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Text(
-                                      _time(record.takeTempertureDateTime),
-                                      style: const TextStyle(
-                                        color: AppColor.textMain,
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    Text(
-                                      "${record.temperature}",
-                                      style: const TextStyle(
-                                        color: AppColor.textMain,
-                                        fontSize: 14,
+                    Builder(builder: (context) {
+                      final filtered = _filterRecords(
+                        dateForMonth: dateForMonth.value,
+                        day: day,
+                      );
+                      if (filtered.isEmpty) {
+                        return Container();
+                      }
+
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: StickyHeader(
+                              header: Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
+                                color: Colors.grey,
+                                width: MediaQuery.of(context).size.width,
+                                child: Text(
+                                  "$day日(${_weekday(DateTime(dateForMonth.value.year, dateForMonth.value.month, day))})",
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      color: AppColor.textLightGray),
+                                ),
+                              ),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  for (final record in filtered) ...[
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 12, vertical: 12),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            _time(
+                                                record.takeTempertureDateTime),
+                                            style: const TextStyle(
+                                              color: AppColor.textMain,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          const Spacer(),
+                                          Text(
+                                            "${record.temperature}",
+                                            style: const TextStyle(
+                                              color: AppColor.textMain,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],
-                                ),
-                                const Divider(
-                                  color: Colors.red,
-                                ),
-                              ],
-                            ],
+                                  const Divider(
+                                    height: 1,
+                                    color: Colors.black,
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      );
+                    }),
                   ],
                 ],
               ),
@@ -170,7 +192,7 @@ class MonthHeader extends StatelessWidget {
 
 String _month(DateTime tempertureDate) =>
     DateFormat(DateFormat.MONTH, "ja_JP").format(tempertureDate);
-String _day(DateTime tempertureDate) =>
-    DateFormat(DateFormat.DAY, "ja_JP").format(tempertureDate);
+String _weekday(DateTime date) =>
+    DateFormat(DateFormat.ABBR_WEEKDAY, "ja_JP").format(date);
 String _time(DateTime tempertureDate) =>
     DateFormat(DateFormat.HOUR_MINUTE, "ja_JP").format(tempertureDate);
