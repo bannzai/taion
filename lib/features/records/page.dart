@@ -85,14 +85,14 @@ class RecordListBody extends HookConsumerWidget {
                                   children: [
                                     Container(
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 12),
-                                      color: Colors.grey,
+                                          horizontal: 12, vertical: 2),
+                                      color: AppColor.lightGray,
                                       width: MediaQuery.of(context).size.width,
                                       child: Text(
                                         "$day日(${_weekday(DateTime(dateForMonth.value.year, dateForMonth.value.month, day))})",
                                         style: const TextStyle(
-                                            fontSize: 14,
-                                            color: AppColor.textLightGray),
+                                            fontSize: 12,
+                                            color: AppColor.textGray),
                                       ),
                                     ),
                                     Divider(
@@ -168,7 +168,7 @@ class RecordListItem extends StatelessWidget {
         Navigator.of(context).push(RecordPostPageRoute.route(record: record));
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -176,7 +176,7 @@ class RecordListItem extends StatelessWidget {
               _time(record.takeTemperatureDateTime),
               style: const TextStyle(
                 color: AppColor.textMain,
-                fontSize: 13,
+                fontSize: 14,
               ),
             ),
             const Spacer(),
@@ -184,7 +184,7 @@ class RecordListItem extends StatelessWidget {
               "${record.temperature}℃",
               style: const TextStyle(
                 color: AppColor.textMain,
-                fontSize: 13,
+                fontSize: 14,
               ),
             ),
           ],

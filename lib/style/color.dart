@@ -5,7 +5,8 @@ abstract class AppColor {
   static const Color primary = Color(_primaryValue);
   static const Color danger = Color(0xFFFF4B00);
   static const Color textMain = Colors.black;
-  static const Color textLightGray = Color(0xFFE2E2E2);
+  static const Color textGray = Color(0xFF444444);
+  static const Color lightGray = Color(0xFFEAEAEA);
   static const Color secondaryBackground = Color(0xFFE8EBED);
 
   static const MaterialColor primaryMaterialColor =
