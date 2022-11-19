@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:taion/entity/record.codegen.dart';
 import 'package:taion/features/danger/dialog.dart';
+import 'package:taion/features/error/alert.dart';
 import 'package:taion/provider/record.dart';
 import 'package:taion/provider/user.dart';
 import 'package:taion/style/button.dart';
@@ -28,13 +30,20 @@ class RecordPostDeleteButton extends HookConsumerWidget {
             title: "削除しますか？",
             message: "削除あとはデータが完全に消えます。削除しますか？",
             confirmationButton: AlertButton(
-                onPressed: () async {
+              onPressed: () async {
+                try {
                   await deleteRecord(
                     record,
                     userID: userID,
                   );
-                },
-                text: "削除する"),
+                  // ignore: use_build_context_synchronously
+                  Navigator.of(context).pop();
+                } catch (e) {
+                  showErrorAlert(context, e);
+                }
+              },
+              text: "削除する",
+            ),
           ),
         );
       },
