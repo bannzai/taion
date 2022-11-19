@@ -117,6 +117,15 @@ class RecordPostPage extends HookConsumerWidget {
                     textEditingController: memoTextEditingController,
                     focusNode: memoFocusNode,
                   ),
+                  if (record != null)
+                    DangerButton(
+                      text: "削除",
+                      onPressed: temperatureValue == null
+                          ? null
+                          : () async {
+                              // WIP
+                            },
+                    ),
                   const SizedBox(height: 20),
                 ],
               ),

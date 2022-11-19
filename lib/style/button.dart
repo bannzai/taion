@@ -97,11 +97,11 @@ class GreyButton extends StatelessWidget {
   }
 }
 
-class DangerTextButton extends HookWidget {
+class DangerButton extends HookWidget {
   final String text;
   final Future<void> Function()? onPressed;
 
-  const DangerTextButton({
+  const DangerButton({
     Key? key,
     required this.text,
     required this.onPressed,
