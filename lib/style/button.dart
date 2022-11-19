@@ -258,10 +258,10 @@ class AlertButton extends HookWidget {
             text,
             style: TextStyle(
                 fontWeight: FontWeight.w600,
-                fontSize: 16,
+                fontSize: 13,
                 color: (isProcessing.value || onPressed == null)
                     ? AppColor.textLightGray
-                    : AppColor.primary),
+                    : AppColor.danger),
           ),
           if (isProcessing.value) _Loading(),
         ],
