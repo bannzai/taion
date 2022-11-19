@@ -116,7 +116,7 @@ class DangerButton extends HookWidget {
         backgroundColor: Colors.white,
         minimumSize: const Size.fromHeight(44),
         elevation: 0,
-        side: const BorderSide(color: Colors.black, width: 0.5),
+        side: const BorderSide(color: Colors.grey, width: 0.5),
       ),
       onPressed: onPressed == null
           ? null
