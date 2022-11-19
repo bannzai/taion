@@ -40,8 +40,8 @@ class App extends StatelessWidget {
           ),
           outlinedButtonTheme: OutlinedButtonThemeData(
             style: OutlinedButton.styleFrom(
-              side: const BorderSide(width: 1.0, color: AppColor.primary),
-              foregroundColor: AppColor.primary,
+              side: const BorderSide(width: 1.0, color: Colors.black),
+              foregroundColor: AppColor.textMain,
             ),
           ),
           appBarTheme: const AppBarTheme(
@@ -56,7 +56,7 @@ class App extends StatelessWidget {
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 width: 1,
-                color: AppColor.primary,
+                color: Colors.black,
               ),
             ),
           ),
