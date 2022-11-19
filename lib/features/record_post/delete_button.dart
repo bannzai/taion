@@ -37,7 +37,7 @@ class RecordPostDeleteButton extends HookConsumerWidget {
                     userID: userID,
                   );
                   // ignore: use_build_context_synchronously
-                  Navigator.of(context).pop();
+                  Navigator.of(context).popUntil((route) => route.isFirst);
                 } catch (e) {
                   showErrorAlert(context, e);
                 }
