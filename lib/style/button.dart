@@ -219,3 +219,53 @@ class _Loading extends StatelessWidget {
     );
   }
 }
+
+class AlertButton extends HookWidget {
+  final String text;
+  final Future<void> Function()? onPressed;
+
+  const AlertButton({
+    Key? key,
+    required this.onPressed,
+    required this.text,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final isProcessing = useState(false);
+    final isMounted = useIsMounted();
+
+    return TextButton(
+      onPressed: onPressed == null
+          ? null
+          : () async {
+              if (isProcessing.value) {
+                return;
+              }
+              isProcessing.value = true;
+              try {
+                await onPressed?.call();
+              } catch (error) {
+                rethrow;
+              } finally {
+                if (isMounted()) isProcessing.value = false;
+              }
+            },
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Text(
+            text,
+            style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+                color: (isProcessing.value || onPressed == null)
+                    ? AppColor.textLightGray
+                    : AppColor.primary),
+          ),
+          if (isProcessing.value) _Loading(),
+        ],
+      ),
+    );
+  }
+}

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:taion/entity/record.codegen.dart';
+import 'package:taion/features/record_post/delete_button.dart';
 import 'package:taion/features/record_post/memo.dart';
 import 'package:taion/features/record_post/tags.dart';
 import 'package:taion/features/record_post/temperature.dart';
@@ -20,8 +21,10 @@ class RecordPostPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userID = ref.watch(mustUserIDProvider);
+    final record = this.record;
     final setRecord = ref.watch(setRecordProvider);
+
+    final userID = ref.watch(mustUserIDProvider);
     final temperature = useState(record?.temperature);
     final tags = useState(record?.tags ?? []);
     final memo = useState(record?.memo ?? "");
@@ -117,15 +120,9 @@ class RecordPostPage extends HookConsumerWidget {
                     textEditingController: memoTextEditingController,
                     focusNode: memoFocusNode,
                   ),
-                  if (record != null)
-                    DangerButton(
-                      text: "削除",
-                      onPressed: temperatureValue == null
-                          ? null
-                          : () async {
-                              // WIP
-                            },
-                    ),
+                  if (record != null) ...[
+                    RecordPostDeleteButton(record: record)
+                  ],
                   const SizedBox(height: 20),
                 ],
               ),

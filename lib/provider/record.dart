@@ -39,3 +39,14 @@ class SetRecord {
 }
 
 final setRecordProvider = Provider((ref) => SetRecord());
+
+class DeleteRecord {
+  Future<void> call(
+    Record record, {
+    required String userID,
+  }) async {
+    await recordCollectionReference(userID: userID).doc(record.id).delete();
+  }
+}
+
+final deleteRecordProvider = Provider((ref) => DeleteRecord());
