@@ -91,7 +91,7 @@ class RecordListBody extends HookConsumerWidget {
                                       child: Text(
                                         "$day日(${_weekday(DateTime(dateForMonth.value.year, dateForMonth.value.month, day))})",
                                         style: const TextStyle(
-                                            fontSize: 12,
+                                            fontSize: 13,
                                             color: AppColor.textGray),
                                       ),
                                     ),
@@ -176,7 +176,7 @@ class RecordListItem extends StatelessWidget {
               _time(record.takeTemperatureDateTime),
               style: const TextStyle(
                 color: AppColor.textMain,
-                fontSize: 14,
+                fontSize: 15,
               ),
             ),
             const Spacer(),
@@ -184,7 +184,7 @@ class RecordListItem extends StatelessWidget {
               "${record.temperature}℃",
               style: const TextStyle(
                 color: AppColor.textMain,
-                fontSize: 14,
+                fontSize: 15,
               ),
             ),
           ],
