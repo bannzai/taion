@@ -17,7 +17,10 @@ class DangerDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Icon(Icons.warning),
+      title: const Icon(
+        Icons.warning,
+        color: AppColor.danger,
+      ),
       content: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
