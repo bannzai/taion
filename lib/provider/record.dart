@@ -23,7 +23,7 @@ CollectionReference<Record> recordCollectionReference(
 
 final recordsProvider = StreamProvider((ref) =>
     recordCollectionReference(userID: FirebaseAuth.instance.currentUser!.uid)
-        .orderBy("createdDateTime", descending: true)
+        .orderBy("createdDateTime", descending: false)
         .snapshots()
         .map((event) => event.docs.map((e) => e.data()).toList()));
 

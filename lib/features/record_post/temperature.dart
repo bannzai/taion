@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:taion/features/record_post/util.dart';
+import 'package:taion/utility/const.dart';
 
 class RecordPostTempurature extends StatelessWidget {
   final ValueNotifier<double?> temperature;
@@ -38,7 +39,7 @@ class RecordPostTempurature extends StatelessWidget {
             TempertureInputFormatter(),
           ],
           decoration: const InputDecoration(
-            hintText: "36.5",
+            hintText: "36.5$temperatureSuffix",
             border: OutlineInputBorder(),
           ),
           controller: textEditingController,
