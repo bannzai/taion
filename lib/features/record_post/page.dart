@@ -43,6 +43,13 @@ class RecordPostPage extends HookConsumerWidget {
     final scrollController = useScrollController();
     final offset = MediaQuery.of(context).viewInsets.bottom;
 
+    useEffect(() {
+      if (record == null) {
+        temperatureFocusNode.requestFocus();
+      }
+      return null;
+    }, [true]);
+
     debugPrint("[DEBUG] Rebuild ... ${runtimeType}");
 
     return Scaffold(
