@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:taion/style/color.dart';
 
 class PrimaryButton extends HookWidget {
@@ -41,8 +42,7 @@ class PrimaryButton extends HookWidget {
               }
             },
       child: ConstrainedBox(
-        constraints: const BoxConstraints(
-            maxHeight: 44, minHeight: 44, minWidth: 220, maxWidth: 220),
+        constraints: const BoxConstraints(minHeight: 44, minWidth: 220),
         child: Stack(
           alignment: Alignment.center,
           children: [
@@ -81,8 +81,7 @@ class GreyButton extends StatelessWidget {
       ),
       onPressed: onPressed,
       child: ConstrainedBox(
-        constraints: const BoxConstraints(
-            maxHeight: 44, minHeight: 44, minWidth: 180, maxWidth: 180),
+        constraints: const BoxConstraints(minHeight: 44, minWidth: 180),
         child: Center(
           child: Text(
             text,
@@ -92,6 +91,66 @@ class GreyButton extends StatelessWidget {
               color: Colors.white,
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class DangerTextButton extends HookWidget {
+  final String text;
+  final Future<void> Function()? onPressed;
+
+  const DangerTextButton({
+    Key? key,
+    required this.text,
+    required this.onPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var isProcessing = useState(false);
+    final isMounted = useIsMounted();
+    return OutlinedButton(
+      style: OutlinedButton.styleFrom(
+        backgroundColor: Colors.white,
+        minimumSize: const Size.fromHeight(44),
+        elevation: 0,
+        side: const BorderSide(color: AppColor.danger),
+      ),
+      onPressed: onPressed == null
+          ? null
+          : () async {
+              if (isProcessing.value) {
+                return;
+              }
+              isProcessing.value = true;
+
+              try {
+                await onPressed?.call();
+              } catch (error) {
+                rethrow;
+              } finally {
+                if (isMounted()) {
+                  isProcessing.value = false;
+                }
+              }
+            },
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minHeight: 44, minWidth: 180),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Text(
+              text,
+              style: const TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 17,
+                color: AppColor.danger,
+              ),
+            ),
+            if (isProcessing.value) _Loading(),
+          ],
         ),
       ),
     );
@@ -113,38 +172,35 @@ class AppTextButton extends HookWidget {
     var isProcessing = useState(false);
     final isMounted = useIsMounted();
 
-    return SizedBox(
-      height: 44,
-      child: TextButton(
-        style: TextButton.styleFrom(
-          backgroundColor: Colors.transparent,
-          padding: EdgeInsets.zero,
-        ),
-        onPressed: isProcessing.value || onPressed == null
-            ? null
-            : () async {
-                if (isProcessing.value) {
-                  return;
-                }
-                isProcessing.value = true;
+    return TextButton(
+      style: TextButton.styleFrom(
+        backgroundColor: Colors.transparent,
+        padding: EdgeInsets.zero,
+      ),
+      onPressed: isProcessing.value || onPressed == null
+          ? null
+          : () async {
+              if (isProcessing.value) {
+                return;
+              }
+              isProcessing.value = true;
 
-                try {
-                  await onPressed?.call();
-                } catch (error) {
-                  rethrow;
-                } finally {
-                  if (isMounted()) {
-                    isProcessing.value = false;
-                  }
+              try {
+                await onPressed?.call();
+              } catch (error) {
+                rethrow;
+              } finally {
+                if (isMounted()) {
+                  isProcessing.value = false;
                 }
-              },
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            text,
-            if (isProcessing.value) _Loading(),
-          ],
-        ),
+              }
+            },
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          text,
+          if (isProcessing.value) _Loading(),
+        ],
       ),
     );
   }
