@@ -14,6 +14,7 @@ class App extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
           primaryColor: AppColor.primary,
+          primarySwatch: AppColor.primaryMaterialColor,
           inputDecorationTheme: const InputDecorationTheme(
             border: UnderlineInputBorder(
               borderSide: BorderSide(width: 1, color: AppColor.primary),
