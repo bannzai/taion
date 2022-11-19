@@ -52,11 +52,15 @@ class App extends StatelessWidget {
             ),
           ),
         ).copyWith(
+          appBarTheme: const AppBarTheme(
+            color: Colors.white,
+            foregroundColor: AppColor.textMain,
+          ),
           inputDecorationTheme: const InputDecorationTheme(
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 width: 1,
-                color: Colors.black,
+                color: AppColor.primary,
               ),
             ),
           ),
