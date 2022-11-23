@@ -2,21 +2,25 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:taion/entity/firestore_converter.dart';
 
-part 'user.codegen.freezed.dart';
-part 'user.codegen.g.dart';
+part 'actor.codegen.freezed.dart';
+part 'actor.codegen.g.dart';
 
 @freezed
-class User with _$User {
+class Actor with _$Actor {
   @JsonSerializable(explicitToJson: true)
-  factory User({
+  factory Actor({
     required String? id,
+    required String name,
+    required String iconEmoji,
+    required String iconColorHexCode,
+    required int index,
     @JsonKey(
       fromJson: NonNullTimestampConverter.timestampToDateTime,
       toJson: NonNullTimestampConverter.dateTimeToTimestamp,
     )
         required DateTime createdDateTime,
-  }) = _User;
-  User._();
+  }) = _Actor;
+  Actor._();
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory Actor.fromJson(Map<String, dynamic> json) => _$ActorFromJson(json);
 }
