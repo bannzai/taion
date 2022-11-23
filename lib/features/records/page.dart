@@ -48,7 +48,7 @@ class RecordListBody extends HookConsumerWidget {
         title: MonthHeader(dateForMonth: dateForMonth),
         actions: [
           IconButton(
-            icon: const Icon(Icons.settings),
+            icon: const Icon(Icons.filter_alt_rounded),
             onPressed: () {
               // Navigator.of(context).push(UserPageRoute.route());
             },
