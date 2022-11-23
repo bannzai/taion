@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:taion/entity/record.codegen.dart';
 import 'package:taion/features/record_post/delete_button.dart';
 import 'package:taion/features/record_post/memo.dart';
-import 'package:taion/features/record_post/tags.dart';
+import 'package:taion/components/record_tags/record_tags.dart';
 import 'package:taion/features/record_post/temperature.dart';
 import 'package:taion/features/record_post/temperature_date.dart';
 import 'package:taion/provider/record.dart';
@@ -120,7 +120,7 @@ class RecordPostPage extends HookConsumerWidget {
                   RecordPostTemperatureDate(
                       temperatureDate: takeTemperatureDateTime),
                   const SizedBox(height: 20),
-                  RecordPostTags(tags: tags),
+                  RecordTags(tags: tags),
                   const SizedBox(height: 20),
                   RecordPostMemo(
                     memo: memo,

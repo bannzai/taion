@@ -4,10 +4,12 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:sticky_headers/sticky_headers.dart';
+import 'package:taion/components/record_tags/record_tags.dart';
 import 'package:taion/entity/record.codegen.dart';
 import 'package:taion/entity/user.codegen.dart';
 import 'package:taion/features/error/page.dart';
 import 'package:taion/features/record_post/page.dart';
+import 'package:taion/features/records/components/filter/filter_bottom_sheet.dart';
 import 'package:taion/features/records/empty.dart';
 import 'package:taion/provider/record.dart';
 import 'package:taion/provider/user.dart';
@@ -43,6 +45,7 @@ class RecordListBody extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final dateForMonth = useState(DateTime.now());
     final daysOfMonth = _days(dateForMonth.value);
+    final tags = useState<List<String>>([]);
     return Scaffold(
       appBar: AppBar(
         title: MonthHeader(dateForMonth: dateForMonth),
@@ -50,7 +53,12 @@ class RecordListBody extends HookConsumerWidget {
           IconButton(
             icon: const Icon(Icons.filter_alt_rounded),
             onPressed: () {
-              // Navigator.of(context).push(UserPageRoute.route());
+              showModalBottomSheet(
+                context: context,
+                builder: (_) => RecordListFilterBottomSheet(tags: tags),
+                backgroundColor: Colors.transparent,
+                isScrollControlled: true,
+              );
             },
           ),
         ],
@@ -67,11 +75,25 @@ class RecordListBody extends HookConsumerWidget {
                 itemCount: daysOfMonth.length,
                 itemBuilder: (context, index) {
                   final day = daysOfMonth[index];
-                  final filtered = _recordsInDay(
-                    dateForMonth: dateForMonth.value,
-                    day: day,
-                  );
-                  if (filtered.isEmpty) {
+                  final List<Record> records = () {
+                    final recordsInDay = _recordsInDay(
+                      dateForMonth: dateForMonth.value,
+                      day: day,
+                    );
+                    final List<Record> records;
+                    if (tags.value.isEmpty) {
+                      records = recordsInDay;
+                    } else {
+                      records = recordsInDay.where((record) {
+                        return tags.value.where((tag) {
+                          return record.tags.contains(tag);
+                        }).isNotEmpty;
+                      }).toList();
+                    }
+                    return records;
+                  }();
+
+                  if (records.isEmpty) {
                     return Container();
                   }
 
@@ -102,12 +124,11 @@ class RecordListBody extends HookConsumerWidget {
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              for (final record in filtered) ...[
+                              for (final record in records) ...[
                                 RecordListItem(record: record),
                                 Padding(
                                   padding: EdgeInsets.only(
-                                    left:
-                                        record.id == filtered.last.id ? 0 : 12,
+                                    left: record.id == records.last.id ? 0 : 12,
                                   ),
                                   child: const Divider(
                                     height: 1,
