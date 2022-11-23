@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:async_value_group/async_value_group.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -5,12 +7,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:taion/components/record_tags/record_tags.dart';
+import 'package:taion/entity/actor.codegen.dart';
 import 'package:taion/entity/record.codegen.dart';
 import 'package:taion/entity/user.codegen.dart';
 import 'package:taion/features/error/page.dart';
 import 'package:taion/features/record_post/page.dart';
 import 'package:taion/features/records/components/filter/filter_bottom_sheet.dart';
 import 'package:taion/features/records/empty.dart';
+import 'package:taion/provider/actor.dart';
 import 'package:taion/provider/record.dart';
 import 'package:taion/provider/user.dart';
 import 'package:taion/style/color.dart';
@@ -23,11 +27,11 @@ class RecordListPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return AsyncValueGroup.group2(
       ref.watch(recordsProvider),
-      ref.watch(userProvider),
+      ref.watch(actorsProvider),
     ).when(
       data: (t) => t.t1.isEmpty
           ? const RecordListEmpty()
-          : RecordListBody(records: t.t1, user: t.t2),
+          : RecordListBody(records: t.t1, actors: t.t2),
       error: (error, st) =>
           ErrorPage(error: error, reload: () => ref.refresh(recordsProvider)),
       loading: () => const CircularProgressIndicator(),
@@ -37,15 +41,29 @@ class RecordListPage extends HookConsumerWidget {
 
 class RecordListBody extends HookConsumerWidget {
   final List<Record> records;
-  final User? user;
+  final List<Actor> actors;
 
-  const RecordListBody({super.key, required this.records, required this.user});
+  const RecordListBody({
+    super.key,
+    required this.records,
+    required this.actors,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final dateForMonth = useState(DateTime.now());
     final daysOfMonth = _days(dateForMonth.value);
     final tags = useState<List<String>>([]);
+    final userID = ref.watch(mustUserIDProvider);
+
+    useEffect(() {
+      if (actors.isEmpty) {
+        final actor = Actor.create(index: 0);
+        unawaited(ref.read(setActorProvider).call(actor, userID: userID));
+      }
+      return null;
+    }, [true]);
+
     return Scaffold(
       appBar: AppBar(
         title: MonthHeader(dateForMonth: dateForMonth),

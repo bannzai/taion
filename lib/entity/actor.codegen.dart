@@ -25,35 +25,33 @@ class Actor with _$Actor {
   Actor._();
 
   factory Actor.fromJson(Map<String, dynamic> json) => _$ActorFromJson(json);
-//  factory Actor.create({required int index}) => Actor(
-//      id: null,
-//      name: "グループ $index",
-//      iconEmoji: _randomEmoji(),
-//      iconColorHexCode: _randomColorHexCode(),
-//      index: index,
-//      createdDateTime: DateTime.now());
+  factory Actor.create({required int index}) => Actor(
+      id: null,
+      name: "グループ $index",
+      iconEmoji: _randomEmoji(),
+      iconColorHexCode: _randomColorHexCode(),
+      index: index,
+      createdDateTime: DateTime.now());
 }
 
-//int _randomColorHexCode() {
-//  return (Random().nextDouble() * 0xFFFFFF).toInt();
-//// emojis()
-//}
-//
-//String _randomEmoji() {
-//  final emojis = _emojis();
-//  return emojis[Random().nextInt(emojis.length - 1)];
-//}
-//
-//List<String> _emojis() {
-//  return _range().map((e) => String.fromCharCode(e)).toList();
-//}
-//
-//Iterable<int> _range() sync* {
-//  final start = 0x1F601;
-//  final stop = 0x1F64F;
-//
-//  for (int value = start; value < stop; value += 1) {
-//    yield value;
-//  }
-//}
-//
+int _randomColorHexCode() {
+  return (Random().nextDouble() * 0xFFFFFF).toInt();
+}
+
+String _randomEmoji() {
+  final emojis = _emojis();
+  return emojis[Random().nextInt(emojis.length - 1)];
+}
+
+List<String> _emojis() {
+  return _range().map((e) => String.fromCharCode(e)).toList();
+}
+
+Iterable<int> _range() sync* {
+  const start = 0x1F601;
+  const stop = 0x1F64F;
+
+  for (int value = start; value < stop; value += 1) {
+    yield value;
+  }
+}
