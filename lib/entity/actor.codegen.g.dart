@@ -10,7 +10,7 @@ _$_Actor _$$_ActorFromJson(Map<String, dynamic> json) => _$_Actor(
       id: json['id'] as String?,
       name: json['name'] as String,
       iconEmoji: json['iconEmoji'] as String,
-      iconColorHexCode: json['iconColorHexCode'] as String,
+      iconColorHexCode: json['iconColorHexCode'] as int,
       index: json['index'] as int,
       createdDateTime: NonNullTimestampConverter.timestampToDateTime(
           json['createdDateTime'] as Timestamp),

@@ -26,7 +26,7 @@ class _$ActorTearOff {
       {required String? id,
       required String name,
       required String iconEmoji,
-      required String iconColorHexCode,
+      required int iconColorHexCode,
       required int index,
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
           required DateTime createdDateTime}) {
@@ -53,7 +53,7 @@ mixin _$Actor {
   String? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get iconEmoji => throw _privateConstructorUsedError;
-  String get iconColorHexCode => throw _privateConstructorUsedError;
+  int get iconColorHexCode => throw _privateConstructorUsedError;
   int get index => throw _privateConstructorUsedError;
   @JsonKey(
       fromJson: NonNullTimestampConverter.timestampToDateTime,
@@ -73,7 +73,7 @@ abstract class $ActorCopyWith<$Res> {
       {String? id,
       String name,
       String iconEmoji,
-      String iconColorHexCode,
+      int iconColorHexCode,
       int index,
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
           DateTime createdDateTime});
@@ -112,7 +112,7 @@ class _$ActorCopyWithImpl<$Res> implements $ActorCopyWith<$Res> {
       iconColorHexCode: iconColorHexCode == freezed
           ? _value.iconColorHexCode
           : iconColorHexCode // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       index: index == freezed
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
@@ -134,7 +134,7 @@ abstract class _$ActorCopyWith<$Res> implements $ActorCopyWith<$Res> {
       {String? id,
       String name,
       String iconEmoji,
-      String iconColorHexCode,
+      int iconColorHexCode,
       int index,
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
           DateTime createdDateTime});
@@ -174,7 +174,7 @@ class __$ActorCopyWithImpl<$Res> extends _$ActorCopyWithImpl<$Res>
       iconColorHexCode: iconColorHexCode == freezed
           ? _value.iconColorHexCode
           : iconColorHexCode // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       index: index == freezed
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
@@ -211,7 +211,7 @@ class _$_Actor extends _Actor {
   @override
   final String iconEmoji;
   @override
-  final String iconColorHexCode;
+  final int iconColorHexCode;
   @override
   final int index;
   @override
@@ -266,7 +266,7 @@ abstract class _Actor extends Actor {
       {required String? id,
       required String name,
       required String iconEmoji,
-      required String iconColorHexCode,
+      required int iconColorHexCode,
       required int index,
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
           required DateTime createdDateTime}) = _$_Actor;
@@ -281,7 +281,7 @@ abstract class _Actor extends Actor {
   @override
   String get iconEmoji;
   @override
-  String get iconColorHexCode;
+  int get iconColorHexCode;
   @override
   int get index;
   @override
