@@ -42,6 +42,7 @@ class RecordListBody extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final dateForMonth = useState(DateTime.now());
+    final daysOfMonth = _days(dateForMonth.value);
     return Scaffold(
       appBar: AppBar(
         title: MonthHeader(dateForMonth: dateForMonth),
@@ -64,69 +65,66 @@ class RecordListBody extends HookConsumerWidget {
         child: Column(
           children: [
             Expanded(
-              child: ListView(
+              child: ListView.builder(
                 shrinkWrap: true,
-                children: [
-                  for (final day in _days(dateForMonth.value)) ...[
-                    Builder(
-                      builder: (context) {
-                        final filtered = _filterRecords(
-                          dateForMonth: dateForMonth.value,
-                          day: day,
-                        );
+                itemCount: daysOfMonth.length,
+                itemBuilder: (context, index) {
+                  final day = daysOfMonth[index];
+                  final filtered = _filterRecords(
+                    dateForMonth: dateForMonth.value,
+                    day: day,
+                  );
+                  if (filtered.isEmpty) {
+                    return Container();
+                  }
 
-                        return Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: StickyHeader(
-                                header: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 12, vertical: 2),
-                                      color: AppColor.lightGray,
-                                      width: MediaQuery.of(context).size.width,
-                                      child: Text(
-                                        "$day日(${_weekday(DateTime(dateForMonth.value.year, dateForMonth.value.month, day))})",
-                                        style: const TextStyle(
-                                            fontSize: 13,
-                                            color: AppColor.textGray),
-                                      ),
-                                    ),
-                                    Divider(
-                                        height: 1,
-                                        color: Colors.black.withAlpha(200)),
-                                  ],
-                                ),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    for (final record in filtered) ...[
-                                      RecordListItem(record: record),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                          left: record.id == filtered.last.id
-                                              ? 0
-                                              : 12,
-                                        ),
-                                        child: const Divider(
-                                          height: 1,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ],
-                                  ],
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: StickyHeader(
+                          header: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 2),
+                                color: AppColor.lightGray,
+                                width: MediaQuery.of(context).size.width,
+                                child: Text(
+                                  "$day日(${_weekday(DateTime(dateForMonth.value.year, dateForMonth.value.month, day))})",
+                                  style: const TextStyle(
+                                      fontSize: 13, color: AppColor.textGray),
                                 ),
                               ),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                  ],
-                ],
+                              Divider(
+                                  height: 1,
+                                  color: Colors.black.withAlpha(200)),
+                            ],
+                          ),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              for (final record in filtered) ...[
+                                RecordListItem(record: record),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    left:
+                                        record.id == filtered.last.id ? 0 : 12,
+                                  ),
+                                  child: const Divider(
+                                    height: 1,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
           ],
