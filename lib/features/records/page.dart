@@ -133,6 +133,11 @@ class RecordListBody extends HookConsumerWidget {
     );
   }
 
+  bool _recordIsExistInMonth({required DateTime dateForMonth}) => records
+      .where((element) =>
+          isSameMonth(element.takeTemperatureDateTime, dateForMonth))
+      .isNotEmpty;
+
   List<Record> _filterRecords({
     required DateTime dateForMonth,
     required int day,
