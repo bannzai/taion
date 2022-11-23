@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:taion/components/record_tags/record_tags.dart';
 import 'package:taion/style/color.dart';
 
-class RecordListFilterBottomSheet extends StatelessWidget {
+class RecordListFilterBottomSheet extends HookConsumerWidget {
   final ValueNotifier<List<String>> tags;
   const RecordListFilterBottomSheet({super.key, required this.tags});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _ = useState(DateTime.now());
+    tags.addListener(() {
+      _.value = DateTime.now();
+    });
     return DraggableScrollableSheet(
       initialChildSize: 0.7,
       maxChildSize: 0.7,
