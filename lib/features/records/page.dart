@@ -67,7 +67,7 @@ class RecordListBody extends HookConsumerWidget {
                 itemCount: daysOfMonth.length,
                 itemBuilder: (context, index) {
                   final day = daysOfMonth[index];
-                  final filtered = _filterRecords(
+                  final filtered = _recordsInDay(
                     dateForMonth: dateForMonth.value,
                     day: day,
                   );
@@ -133,7 +133,7 @@ class RecordListBody extends HookConsumerWidget {
           isSameMonth(element.takeTemperatureDateTime, dateForMonth))
       .isNotEmpty;
 
-  List<Record> _filterRecords({
+  List<Record> _recordsInDay({
     required DateTime dateForMonth,
     required int day,
   }) =>
