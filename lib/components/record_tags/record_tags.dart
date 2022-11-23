@@ -3,10 +3,10 @@ import 'package:taion/entity/record.codegen.dart';
 import 'package:taion/features/record_post/util.dart';
 import 'package:taion/style/color.dart';
 
-class RecordPostTags extends StatelessWidget {
+class RecordTags extends StatelessWidget {
   final ValueNotifier<List<String>> tags;
 
-  const RecordPostTags({super.key, required this.tags});
+  const RecordTags({super.key, required this.tags});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class RecordPostTags extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Text("体調詳細", style: secitonTitle),
+        const Text("タグ", style: secitonTitle),
         const SizedBox(height: 8),
         Wrap(
           spacing: 10,
