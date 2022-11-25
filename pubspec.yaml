@@ -51,6 +51,7 @@ dependencies:
   flutter_svg: ^1.1.6
   async_value_group: ^1.0.0
   sticky_headers: ^0.3.0+2
+  shared_preferences: ^2.0.4
 
 dev_dependencies:
   flutter_test:
