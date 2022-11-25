@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:taion/entity/actor.codegen.dart';
 import 'package:taion/entity/firestore_converter.dart';
 
 part 'record.codegen.freezed.dart';
@@ -13,6 +14,7 @@ class Record with _$Record {
     required double temperature,
     required List<String> tags,
     required String memo,
+    required Actor actor,
     @JsonKey(
       fromJson: NonNullTimestampConverter.timestampToDateTime,
       toJson: NonNullTimestampConverter.dateTimeToTimestamp,
