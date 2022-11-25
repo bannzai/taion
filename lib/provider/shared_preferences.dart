@@ -50,7 +50,7 @@ class IntSharedPreferences extends FamilyAsyncNotifier<int?, String> {
 }
 
 abstract class StringKey {
-  static const latestUsedGroupID = "latestUsedGroupID";
+  static const latestUsedActorID = "latestUsedActorID";
 }
 
 final stringSharedPreferencesProvider =

@@ -8,6 +8,7 @@ import 'package:taion/components/record_tags/record_tags.dart';
 import 'package:taion/features/record_post/temperature.dart';
 import 'package:taion/features/record_post/temperature_date.dart';
 import 'package:taion/provider/record.dart';
+import 'package:taion/provider/shared_preferences.dart';
 import 'package:taion/provider/user.dart';
 import 'package:taion/style/button.dart';
 import 'package:taion/style/color.dart';
@@ -42,6 +43,11 @@ class RecordPostPage extends HookConsumerWidget {
 
     final scrollController = useScrollController();
     final offset = MediaQuery.of(context).viewInsets.bottom;
+
+    final latestUsedActorIDNotifier = ref.watch(
+        stringSharedPreferencesProvider(StringKey.latestUsedActorID).notifier);
+    final latestUsedActorID =
+        ref.watch(stringSharedPreferencesProvider(StringKey.latestUsedActorID));
 
     useEffect(() {
       if (record == null) {
