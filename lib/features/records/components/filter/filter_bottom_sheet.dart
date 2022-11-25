@@ -41,7 +41,7 @@ class RecordListFilterBottomSheet extends HookConsumerWidget {
                         fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 15),
-                  RecordTags(tags: tags)
+                  RecordTags(selectedTags: tags)
                 ],
               ),
             ),

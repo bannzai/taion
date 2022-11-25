@@ -126,7 +126,7 @@ class RecordPostPage extends HookConsumerWidget {
                   RecordPostTemperatureDate(
                       temperatureDate: takeTemperatureDateTime),
                   const SizedBox(height: 20),
-                  RecordTags(tags: tags),
+                  RecordTags(selectedTags: tags),
                   const SizedBox(height: 20),
                   RecordPostMemo(
                     memo: memo,

@@ -3,9 +3,9 @@ import 'package:taion/entity/record.codegen.dart';
 import 'package:taion/style/color.dart';
 
 class RecordTags extends StatelessWidget {
-  final ValueNotifier<List<String>> tags;
+  final ValueNotifier<List<String>> selectedTags;
 
-  const RecordTags({super.key, required this.tags});
+  const RecordTags({super.key, required this.selectedTags});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class RecordTags extends StatelessWidget {
         Wrap(
           spacing: 10,
           children: defaultTags.map((e) {
-            isSelected() => tags.value.contains(e);
+            isSelected() => selectedTags.value.contains(e);
             return ChoiceChip(
               label: Text(e),
               labelStyle:
@@ -33,9 +33,9 @@ class RecordTags extends StatelessWidget {
               selected: isSelected(),
               onSelected: (selected) {
                 if (isSelected()) {
-                  tags.value = List.from(tags.value)..remove(e);
+                  selectedTags.value = List.from(selectedTags.value)..remove(e);
                 } else {
-                  tags.value = List.from(tags.value)..add(e);
+                  selectedTags.value = List.from(selectedTags.value)..add(e);
                 }
               },
             );
