@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:taion/features/record_post/util.dart';
+import 'package:taion/style/color.dart';
 import 'package:taion/utility/const.dart';
 
 class RecordPostTempurature extends StatelessWidget {
@@ -21,7 +21,12 @@ class RecordPostTempurature extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Text("体温", style: secitonTitle),
+        const Text("体温",
+            style: TextStyle(
+              fontWeight: FontWeight.w300,
+              fontSize: 17,
+              color: AppColor.textMain,
+            )),
         const SizedBox(height: 8),
         TextFormField(
           onChanged: (text) {

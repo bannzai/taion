@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:taion/features/record_post/util.dart';
 import 'package:taion/style/color.dart';
 
 class RecordPostTemperatureDate extends StatelessWidget {
@@ -14,7 +13,12 @@ class RecordPostTemperatureDate extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Text("測定日時", style: secitonTitle),
+        const Text("測定日時",
+            style: TextStyle(
+              fontWeight: FontWeight.w300,
+              fontSize: 17,
+              color: AppColor.textMain,
+            )),
         const SizedBox(height: 8),
         Row(
           children: [

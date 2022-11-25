@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:taion/entity/record.codegen.dart';
-import 'package:taion/features/record_post/util.dart';
 import 'package:taion/style/color.dart';
 
 class RecordTags extends StatelessWidget {
@@ -14,7 +13,12 @@ class RecordTags extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Text("タグ", style: secitonTitle),
+        const Text("タグ",
+            style: TextStyle(
+              fontWeight: FontWeight.w300,
+              fontSize: 17,
+              color: AppColor.textMain,
+            )),
         const SizedBox(height: 8),
         Wrap(
           spacing: 10,

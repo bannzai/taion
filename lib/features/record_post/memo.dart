@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taion/features/record_post/util.dart';
+import 'package:taion/style/color.dart';
 import 'package:taion/utility/random.dart';
 
 class RecordPostMemo extends StatelessWidget {
@@ -28,7 +28,12 @@ class RecordPostMemo extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Text("メモ", style: secitonTitle),
+        const Text("メモ",
+            style: TextStyle(
+              fontWeight: FontWeight.w300,
+              fontSize: 17,
+              color: AppColor.textMain,
+            )),
         const SizedBox(height: 8),
         ConstrainedBox(
           constraints: BoxConstraints(
