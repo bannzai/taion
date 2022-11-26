@@ -10,7 +10,6 @@ import 'package:taion/features/record_post/temperature.dart';
 import 'package:taion/features/record_post/temperature_date.dart';
 import 'package:taion/provider/actor.dart';
 import 'package:taion/provider/record.dart';
-import 'package:taion/provider/shared_preferences.dart';
 import 'package:taion/provider/user.dart';
 import 'package:taion/style/button.dart';
 import 'package:taion/style/color.dart';

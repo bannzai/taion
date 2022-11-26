@@ -6,7 +6,7 @@ import 'package:taion/provider/actor.dart';
 import 'package:taion/style/color.dart';
 
 class ActorSelect extends HookConsumerWidget {
-  final ValueNotifier<Actor> selectedActor;
+  final ValueNotifier<Actor?> selectedActor;
 
   const ActorSelect({super.key, required this.selectedActor});
 
@@ -57,7 +57,7 @@ class ActorSelect extends HookConsumerWidget {
                                     fontWeight: FontWeight.w600)),
                           ),
                           selectedColor: Color(actor.colorHexCode),
-                          selected: selectedActor.value.id == actor.id,
+                          selected: selectedActor.value?.id == actor.id,
                           onSelected: (selected) {
                             if (selected) {
                               selectedActor.value = actor;

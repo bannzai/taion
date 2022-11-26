@@ -66,6 +66,7 @@ class RecordListBody extends HookConsumerWidget {
     final dateForMonth = useState(DateTime.now());
     final daysOfMonth = _days(dateForMonth.value);
     final tags = useState<List<String>>([]);
+    final actor = useState<Actor?>(null);
 
     return Scaffold(
       appBar: AppBar(
@@ -76,7 +77,8 @@ class RecordListBody extends HookConsumerWidget {
             onPressed: () {
               showModalBottomSheet(
                 context: context,
-                builder: (_) => RecordListFilterBottomSheet(tags: tags),
+                builder: (_) => RecordListFilterBottomSheet(
+                    tags: tags, selectedActor: actor),
                 backgroundColor: Colors.transparent,
                 isScrollControlled: true,
               );
@@ -101,14 +103,17 @@ class RecordListBody extends HookConsumerWidget {
                       dateForMonth: dateForMonth.value,
                       day: day,
                     );
-                    final List<Record> records;
-                    if (tags.value.isEmpty) {
-                      records = recordsInDay;
-                    } else {
-                      records = recordsInDay.where((record) {
+                    List<Record> records = recordsInDay;
+                    if (tags.value.isNotEmpty) {
+                      records = records.where((record) {
                         return tags.value.where((tag) {
                           return record.tags.contains(tag);
                         }).isNotEmpty;
+                      }).toList();
+                    }
+                    if (actor.value != null) {
+                      records = records.where((record) {
+                        return record.actor.id == actor.value?.id;
                       }).toList();
                     }
                     return records;
