@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:taion/components/keyboard/keyboard_toolbar.dart';
 import 'package:taion/entity/actor.codegen.dart';
+import 'package:taion/provider/actor.dart';
 
 class ActorPostPage extends HookConsumerWidget {
   const ActorPostPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final actors = ref.watch(actorsProvider).valueOrNull;
     final scrollController = useScrollController();
+    final nameFocusNode = useFocusNode();
+
+    if (actors == null) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
@@ -32,38 +42,15 @@ class ActorPostPage extends HookConsumerWidget {
                 padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                 controller: scrollController,
                 children: [
-                  const SizedBox(height: 20),
-                  RecordPostTempurature(
-                    temperature: temperature,
-                    textEditingController: temperatureTextEditingController,
-                    focusNode: temperatureFocusNode,
-                  ),
-                  const SizedBox(height: 20),
-                  RecordPostTemperatureDate(
-                      temperatureDate: takeTemperatureDateTime),
-                  const SizedBox(height: 20),
-                  RecordTags(selectedTags: tags),
-                  const SizedBox(height: 20),
-                  RecordPostMemo(
-                    memo: memo,
-                    textEditingController: memoTextEditingController,
-                    focusNode: memoFocusNode,
-                  ),
-                  if (record != null) ...[
-                    RecordPostDeleteButton(record: record)
-                  ],
-                  const SizedBox(height: 20),
+                  for (final actor in actors)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: ActorListItem(actor: actor),
+                    ),
                 ],
               ),
             ),
-            if (memoFocusNode.hasFocus) ...[
-              _keyboardToolbar(context, memoFocusNode),
-              SizedBox(height: offset),
-            ],
-            if (temperatureFocusNode.hasFocus) ...[
-              _keyboardToolbar(context, temperatureFocusNode),
-              SizedBox(height: offset),
-            ],
+            KeyboardToolbar(focusNode: nameFocusNode),
           ],
         ),
       ),
@@ -79,9 +66,17 @@ class ActorListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        CircleAvatar(
-          child: Text(actor.iconEmoji),
-        )
+        SizedBox(
+          height: 60,
+          width: 60,
+          child: CircleAvatar(
+            radius: 30,
+            backgroundColor: Color(actor.colorHexCode),
+            child: Text(actor.iconChar),
+          ),
+        ),
+        const SizedBox(width: 16),
+        Text(actor.name),
       ],
     );
   }
