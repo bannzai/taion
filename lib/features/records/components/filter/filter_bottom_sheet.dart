@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:taion/features/records/components/filter/actor_select.dart';
-import 'package:taion/features/record_post/record_tags.dart';
 import 'package:taion/entity/actor.codegen.dart';
+import 'package:taion/features/records/components/filter/record_tags.dart';
 import 'package:taion/style/color.dart';
 
 class RecordListFilterBottomSheet extends HookConsumerWidget {
@@ -50,7 +50,7 @@ class RecordListFilterBottomSheet extends HookConsumerWidget {
                   const SizedBox(height: 15),
                   RecordsFilterActorSelect(selectedActor: selectedActor),
                   const SizedBox(height: 15),
-                  RecordPostRecordTags(selectedTags: tags),
+                  RecordsFilterRecordTags(selectedTags: tags),
                 ],
               ),
             ),
