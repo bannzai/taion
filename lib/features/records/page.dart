@@ -25,13 +25,19 @@ class RecordListPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return AsyncValueGroup.group2(
+    return AsyncValueGroup.group3(
       ref.watch(recordsProvider),
       ref.watch(actorsProvider),
+      ref.watch(currentActorProvider),
     ).when(
-      data: (t) => t.t1.isEmpty
-          ? const RecordListEmpty()
-          : RecordListBody(records: t.t1, actors: t.t2),
+      data: (t) {
+        final records = t.t1;
+        final actors = t.t2;
+        final currentActor = t.t3;
+        return records.isEmpty || currentActor == null
+            ? RecordListEmpty(actors: actors)
+            : RecordListBody(records: records, actors: actors);
+      },
       error: (error, st) =>
           ErrorPage(error: error, reload: () => ref.refresh(recordsProvider)),
       loading: () => const CircularProgressIndicator(),
@@ -54,15 +60,6 @@ class RecordListBody extends HookConsumerWidget {
     final dateForMonth = useState(DateTime.now());
     final daysOfMonth = _days(dateForMonth.value);
     final tags = useState<List<String>>([]);
-    final userID = ref.watch(mustUserIDProvider);
-
-    useEffect(() {
-      if (actors.isEmpty) {
-        final actor = Actor.create(index: 0);
-        unawaited(ref.read(setActorProvider).call(actor, userID: userID));
-      }
-      return null;
-    }, [true]);
 
     return Scaffold(
       appBar: AppBar(

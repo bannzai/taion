@@ -60,6 +60,16 @@ class ActorsPage extends HookConsumerWidget {
   }
 }
 
+abstract class ActorsPageRoute {
+  static Route<dynamic> route() {
+    return MaterialPageRoute(
+      settings: const RouteSettings(name: "ActorsPage"),
+      builder: (_) => const ActorsPage(),
+      fullscreenDialog: true,
+    );
+  }
+}
+
 class ActorListItem extends HookConsumerWidget {
   final Actor actor;
   const ActorListItem({super.key, required this.actor});

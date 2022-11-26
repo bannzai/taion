@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:taion/entity/actor.codegen.dart';
+import 'package:taion/features/actors/page.dart';
 import 'package:taion/provider/actor.dart';
 import 'package:taion/style/color.dart';
 
@@ -19,12 +20,25 @@ class ActorSelect extends HookConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Text("測定する人",
-            style: TextStyle(
-              fontWeight: FontWeight.w300,
-              fontSize: 17,
-              color: AppColor.textMain,
-            )),
+        Row(
+          children: [
+            const Text(
+              "対象の人",
+              style: TextStyle(
+                fontWeight: FontWeight.w300,
+                fontSize: 17,
+                color: AppColor.textMain,
+              ),
+            ),
+            const Spacer(),
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).push(ActorsPageRoute.route());
+              },
+              icon: const Icon(Icons.add),
+            ),
+          ],
+        ),
         const SizedBox(height: 8),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -38,7 +52,7 @@ class ActorSelect extends HookConsumerWidget {
                     labelPadding: const EdgeInsets.all(4),
                     avatar: CircleAvatar(
                       backgroundColor: Colors.white.withOpacity(0.8),
-                      child: Text(actor.iconEmoji),
+                      child: Text(actor.iconChar),
                     ),
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(

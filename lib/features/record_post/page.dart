@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:taion/entity/actor.codegen.dart';
 import 'package:taion/entity/record.codegen.dart';
 import 'package:taion/features/record_post/delete_button.dart';
 import 'package:taion/features/record_post/memo.dart';
@@ -17,8 +18,10 @@ import 'package:taion/utility/const.dart';
 
 class RecordPostPage extends HookConsumerWidget {
   final Record? record;
+  final Actor currentActor;
 
-  const RecordPostPage({super.key, required this.record});
+  const RecordPostPage(
+      {super.key, required this.record, required this.currentActor});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
