@@ -50,10 +50,19 @@ class ActorSelect extends HookConsumerWidget {
                           labelPadding: const EdgeInsets.all(4),
                           avatar: CircleAvatar(
                             backgroundColor: Colors.white.withOpacity(0.8),
-                            child: Text(actor.iconChar),
+                            foregroundColor: Color(actor.colorHexCode),
+                            child: Text(actor.iconChar,
+                                style: TextStyle(
+                                    color: Color(actor.colorHexCode),
+                                    fontWeight: FontWeight.w600)),
                           ),
                           selectedColor: Color(actor.colorHexCode),
                           selected: selectedActor.value.id == actor.id,
+                          onSelected: (selected) {
+                            if (selected) {
+                              selectedActor.value = actor;
+                            }
+                          },
                         ),
                       ),
                   ],
