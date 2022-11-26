@@ -25,14 +25,14 @@ class _$ActorTearOff {
   _Actor call(
       {required String? id,
       required String name,
-      required int colorHexCode,
+      required int hexColorCode,
       required int index,
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
           required DateTime createdDateTime}) {
     return _Actor(
       id: id,
       name: name,
-      colorHexCode: colorHexCode,
+      hexColorCode: hexColorCode,
       index: index,
       createdDateTime: createdDateTime,
     );
@@ -50,7 +50,7 @@ const $Actor = _$ActorTearOff();
 mixin _$Actor {
   String? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  int get colorHexCode => throw _privateConstructorUsedError;
+  int get hexColorCode => throw _privateConstructorUsedError;
   int get index => throw _privateConstructorUsedError;
   @JsonKey(
       fromJson: NonNullTimestampConverter.timestampToDateTime,
@@ -69,7 +69,7 @@ abstract class $ActorCopyWith<$Res> {
   $Res call(
       {String? id,
       String name,
-      int colorHexCode,
+      int hexColorCode,
       int index,
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
           DateTime createdDateTime});
@@ -87,7 +87,7 @@ class _$ActorCopyWithImpl<$Res> implements $ActorCopyWith<$Res> {
   $Res call({
     Object? id = freezed,
     Object? name = freezed,
-    Object? colorHexCode = freezed,
+    Object? hexColorCode = freezed,
     Object? index = freezed,
     Object? createdDateTime = freezed,
   }) {
@@ -100,9 +100,9 @@ class _$ActorCopyWithImpl<$Res> implements $ActorCopyWith<$Res> {
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      colorHexCode: colorHexCode == freezed
-          ? _value.colorHexCode
-          : colorHexCode // ignore: cast_nullable_to_non_nullable
+      hexColorCode: hexColorCode == freezed
+          ? _value.hexColorCode
+          : hexColorCode // ignore: cast_nullable_to_non_nullable
               as int,
       index: index == freezed
           ? _value.index
@@ -124,7 +124,7 @@ abstract class _$ActorCopyWith<$Res> implements $ActorCopyWith<$Res> {
   $Res call(
       {String? id,
       String name,
-      int colorHexCode,
+      int hexColorCode,
       int index,
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
           DateTime createdDateTime});
@@ -143,7 +143,7 @@ class __$ActorCopyWithImpl<$Res> extends _$ActorCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? name = freezed,
-    Object? colorHexCode = freezed,
+    Object? hexColorCode = freezed,
     Object? index = freezed,
     Object? createdDateTime = freezed,
   }) {
@@ -156,9 +156,9 @@ class __$ActorCopyWithImpl<$Res> extends _$ActorCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      colorHexCode: colorHexCode == freezed
-          ? _value.colorHexCode
-          : colorHexCode // ignore: cast_nullable_to_non_nullable
+      hexColorCode: hexColorCode == freezed
+          ? _value.hexColorCode
+          : hexColorCode // ignore: cast_nullable_to_non_nullable
               as int,
       index: index == freezed
           ? _value.index
@@ -179,7 +179,7 @@ class _$_Actor extends _Actor {
   _$_Actor(
       {required this.id,
       required this.name,
-      required this.colorHexCode,
+      required this.hexColorCode,
       required this.index,
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
           required this.createdDateTime})
@@ -193,7 +193,7 @@ class _$_Actor extends _Actor {
   @override
   final String name;
   @override
-  final int colorHexCode;
+  final int hexColorCode;
   @override
   final int index;
   @override
@@ -204,7 +204,7 @@ class _$_Actor extends _Actor {
 
   @override
   String toString() {
-    return 'Actor(id: $id, name: $name, colorHexCode: $colorHexCode, index: $index, createdDateTime: $createdDateTime)';
+    return 'Actor(id: $id, name: $name, hexColorCode: $hexColorCode, index: $index, createdDateTime: $createdDateTime)';
   }
 
   @override
@@ -215,7 +215,7 @@ class _$_Actor extends _Actor {
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
-                .equals(other.colorHexCode, colorHexCode) &&
+                .equals(other.hexColorCode, hexColorCode) &&
             const DeepCollectionEquality().equals(other.index, index) &&
             const DeepCollectionEquality()
                 .equals(other.createdDateTime, createdDateTime));
@@ -226,7 +226,7 @@ class _$_Actor extends _Actor {
       runtimeType,
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(colorHexCode),
+      const DeepCollectionEquality().hash(hexColorCode),
       const DeepCollectionEquality().hash(index),
       const DeepCollectionEquality().hash(createdDateTime));
 
@@ -245,7 +245,7 @@ abstract class _Actor extends Actor {
   factory _Actor(
       {required String? id,
       required String name,
-      required int colorHexCode,
+      required int hexColorCode,
       required int index,
       @JsonKey(fromJson: NonNullTimestampConverter.timestampToDateTime, toJson: NonNullTimestampConverter.dateTimeToTimestamp)
           required DateTime createdDateTime}) = _$_Actor;
@@ -258,7 +258,7 @@ abstract class _Actor extends Actor {
   @override
   String get name;
   @override
-  int get colorHexCode;
+  int get hexColorCode;
   @override
   int get index;
   @override

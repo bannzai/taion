@@ -120,7 +120,7 @@ class ActorListItem extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final userID = ref.watch(mustUserIDProvider);
     final setActor = ref.watch(setActorProvider);
-    final color = useState(Color(actor.colorHexCode));
+    final color = useState(Color(actor.hexColorCode));
     final textEditingController = useTextEditingController(text: actor.name);
     final nameFocusNode = useFocusNode();
 
@@ -175,7 +175,7 @@ class ActorListItem extends HookConsumerWidget {
                             child: const Text('閉じる'),
                             onPressed: () async {
                               setActor(
-                                actor.copyWith(colorHexCode: color.value.value),
+                                actor.copyWith(hexColorCode: color.value.value),
                                 userID: userID,
                               );
                               Navigator.of(context).pop();
@@ -187,7 +187,7 @@ class ActorListItem extends HookConsumerWidget {
                   },
                   child: CircleAvatar(
                     radius: 30,
-                    backgroundColor: Color(actor.colorHexCode),
+                    backgroundColor: Color(actor.hexColorCode),
                     child: Text(
                       actor.iconChar,
                       style: const TextStyle(

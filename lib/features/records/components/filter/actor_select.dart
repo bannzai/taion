@@ -50,13 +50,13 @@ class RecordsFilterActorSelect extends HookConsumerWidget {
                           labelPadding: const EdgeInsets.all(4),
                           avatar: CircleAvatar(
                             backgroundColor: Colors.white.withOpacity(0.8),
-                            foregroundColor: Color(actor.colorHexCode),
+                            foregroundColor: Color(actor.hexColorCode),
                             child: Text(actor.iconChar,
                                 style: TextStyle(
-                                    color: Color(actor.colorHexCode),
+                                    color: Color(actor.hexColorCode),
                                     fontWeight: FontWeight.w600)),
                           ),
-                          selectedColor: Color(actor.colorHexCode),
+                          selectedColor: Color(actor.hexColorCode),
                           selected: selectedActor.value?.id == actor.id,
                           onSelected: (selected) {
                             if (selected) {

@@ -13,7 +13,7 @@ class Actor with _$Actor {
   factory Actor({
     required String? id,
     required String name,
-    required int colorHexCode,
+    required int hexColorCode,
     required int index,
     @JsonKey(
       fromJson: NonNullTimestampConverter.timestampToDateTime,
@@ -29,7 +29,7 @@ class Actor with _$Actor {
   factory Actor.create({required int index, required String name}) => Actor(
       id: null,
       name: name,
-      colorHexCode: _randomColorHexCode(),
+      hexColorCode: _randomColorHexCode(),
       index: index,
       createdDateTime: DateTime.now());
 }
