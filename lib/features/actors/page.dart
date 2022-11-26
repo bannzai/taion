@@ -5,8 +5,8 @@ import 'package:taion/components/keyboard/keyboard_toolbar.dart';
 import 'package:taion/entity/actor.codegen.dart';
 import 'package:taion/provider/actor.dart';
 
-class ActorPostPage extends HookConsumerWidget {
-  const ActorPostPage({super.key});
+class ActorsPage extends HookConsumerWidget {
+  const ActorsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
