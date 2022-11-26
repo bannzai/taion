@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:taion/components/keyboard/keyboard_toolbar.dart';
 import 'package:taion/entity/actor.codegen.dart';
+import 'package:taion/features/error/alert.dart';
 import 'package:taion/features/error/page.dart';
 import 'package:taion/provider/actor.dart';
 import 'package:taion/provider/shared_preferences.dart';
@@ -219,6 +220,11 @@ class ActorListItem extends HookConsumerWidget {
                   ),
                   decoration: null,
                   onSubmitted: (value) {
+                    if (value.isEmpty) {
+                      showErrorAlert(context, "名前を入力してください");
+                      textEditingController.text = actor.name;
+                      return;
+                    }
                     setActor(
                       actor.copyWith(name: value),
                       userID: userID,
