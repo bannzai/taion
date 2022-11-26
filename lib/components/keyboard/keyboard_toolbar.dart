@@ -6,15 +6,10 @@ import 'package:taion/utility/analytics.dart';
 const double keyboardToolbarHeight = 44;
 
 class KeyboardToolbar extends StatelessWidget {
-  final FocusNode focusNode;
-  const KeyboardToolbar({super.key, required this.focusNode});
+  const KeyboardToolbar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    if (!focusNode.hasFocus) {
-      return const SizedBox.shrink();
-    }
-
     return Column(
       children: [
         Container(
@@ -30,7 +25,7 @@ class KeyboardToolbar extends StatelessWidget {
                         color: AppColor.primary, fontWeight: FontWeight.bold)),
                 onPressed: () async {
                   analytics.logEvent(name: "done_keyboard_toolbar");
-                  focusNode.unfocus();
+                  FocusScope.of(context).unfocus();
                 },
               ),
             ],

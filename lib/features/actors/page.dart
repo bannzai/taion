@@ -8,6 +8,7 @@ import 'package:taion/features/error/page.dart';
 import 'package:taion/provider/actor.dart';
 import 'package:taion/provider/shared_preferences.dart';
 import 'package:taion/provider/user.dart';
+import 'package:taion/style/color.dart';
 
 class ActorsPage extends HookConsumerWidget {
   const ActorsPage({super.key});
@@ -31,7 +32,6 @@ class ActorsPageBody extends HookConsumerWidget {
     final setActor = ref.watch(setActorProvider);
     final userID = ref.watch(mustUserIDProvider);
     final scrollController = useScrollController();
-    final nameFocusNode = useFocusNode();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -82,7 +82,7 @@ class ActorsPageBody extends HookConsumerWidget {
                 ],
               ),
             ),
-            KeyboardToolbar(focusNode: nameFocusNode),
+            const KeyboardToolbar(),
           ],
         ),
       ),
@@ -112,6 +112,8 @@ class ActorListItem extends HookConsumerWidget {
     final color = useState(Color(actor.colorHexCode));
     final latestUsedActorIDNotifier = ref.watch(
         stringSharedPreferencesProvider(StringKey.latestUsedActorID).notifier);
+    final textEditingController = useTextEditingController(text: actor.name);
+    final nameFocusNode = useFocusNode();
 
     return GestureDetector(
       onTap: () {
@@ -191,10 +193,24 @@ class ActorListItem extends HookConsumerWidget {
                 ),
               ),
               const SizedBox(width: 16),
-              Text(actor.name,
+              Expanded(
+                child: TextField(
+                  autofocus: false,
+                  focusNode: nameFocusNode,
+                  controller: textEditingController,
+                  maxLines: 1,
+                  maxLength: 8,
                   style: const TextStyle(
-                      fontSize: 15, fontWeight: FontWeight.w500)),
-              const Spacer(),
+                    color: AppColor.textMain,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  decoration: null,
+                ),
+              ),
+//              Text(actor.name,
+//                  style: const TextStyle(
+//                      fontSize: 15, fontWeight: FontWeight.w500)),
               SizedBox(
                   width: 30,
                   height: 30,
