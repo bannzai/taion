@@ -208,9 +208,13 @@ class ActorListItem extends HookConsumerWidget {
                   decoration: null,
                 ),
               ),
-              SizedBox(
+              Container(
                   width: 30,
                   height: 30,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: AppColor.primary.withOpacity(0.1),
+                  ),
                   child: actor.id == currentActor.id
                       ? const Icon(Icons.check, color: Colors.black)
                       : Container()),
