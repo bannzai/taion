@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:taion/entity/actor.codegen.dart';
 import 'package:taion/entity/record.codegen.dart';
 import 'package:taion/features/record_post/delete_button.dart';
 import 'package:taion/features/record_post/memo.dart';
 import 'package:taion/components/record_tags/record_tags.dart';
 import 'package:taion/features/record_post/temperature.dart';
 import 'package:taion/features/record_post/temperature_date.dart';
+import 'package:taion/provider/actor.dart';
 import 'package:taion/provider/record.dart';
-import 'package:taion/provider/shared_preferences.dart';
 import 'package:taion/provider/user.dart';
 import 'package:taion/style/button.dart';
 import 'package:taion/style/color.dart';
@@ -18,15 +17,14 @@ import 'package:taion/utility/const.dart';
 
 class RecordPostPage extends HookConsumerWidget {
   final Record? record;
-  final Actor currentActor;
 
-  const RecordPostPage(
-      {super.key, required this.record, required this.currentActor});
+  const RecordPostPage({super.key, required this.record});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final record = this.record;
     final setRecord = ref.watch(setRecordProvider);
+    final currentActor = ref.watch(mustCurrentActorProvider);
 
     final userID = ref.watch(mustUserIDProvider);
     final temperature = useState(record?.temperature);
@@ -46,11 +44,6 @@ class RecordPostPage extends HookConsumerWidget {
 
     final scrollController = useScrollController();
     final offset = MediaQuery.of(context).viewInsets.bottom;
-
-    final latestUsedActorIDNotifier = ref.watch(
-        stringSharedPreferencesProvider(StringKey.latestUsedActorID).notifier);
-    final latestUsedActorID =
-        ref.watch(stringSharedPreferencesProvider(StringKey.latestUsedActorID));
 
     useEffect(() {
       if (record == null) {
@@ -94,6 +87,7 @@ class RecordPostPage extends HookConsumerWidget {
                       await setRecord(
                         Record(
                           id: null,
+                          actor: currentActor,
                           temperature: temperatureValue,
                           tags: tags.value,
                           memo: memo.value,

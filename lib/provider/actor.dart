@@ -52,6 +52,9 @@ final currentActorProvider = Provider<AsyncValue<Actor?>>((ref) {
   });
 });
 
+final mustCurrentActorProvider =
+    Provider<Actor>((ref) => ref.watch(currentActorProvider).valueOrNull!);
+
 class SetActor {
   Future<void> call(
     Actor actor, {

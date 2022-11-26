@@ -1,22 +1,18 @@
-import 'dart:async';
-
 import 'package:async_value_group/async_value_group.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:sticky_headers/sticky_headers.dart';
-import 'package:taion/components/record_tags/record_tags.dart';
 import 'package:taion/entity/actor.codegen.dart';
 import 'package:taion/entity/record.codegen.dart';
-import 'package:taion/entity/user.codegen.dart';
 import 'package:taion/features/error/page.dart';
 import 'package:taion/features/record_post/page.dart';
 import 'package:taion/features/records/components/filter/filter_bottom_sheet.dart';
 import 'package:taion/features/records/empty.dart';
+import 'package:taion/features/records/prepare.dart';
 import 'package:taion/provider/actor.dart';
 import 'package:taion/provider/record.dart';
-import 'package:taion/provider/user.dart';
 import 'package:taion/style/color.dart';
 import 'package:taion/utility/date.dart';
 
@@ -34,9 +30,17 @@ class RecordListPage extends HookConsumerWidget {
         final records = t.t1;
         final actors = t.t2;
         final currentActor = t.t3;
-        return records.isEmpty || currentActor == null
-            ? RecordListEmpty(actors: actors)
-            : RecordListBody(records: records, actors: actors);
+        if (currentActor == null) {
+          return RecordListPrepare(actors: actors);
+        }
+
+        return records.isEmpty
+            ? RecordListEmpty(currentActor: currentActor)
+            : RecordListBody(
+                records: records,
+                actors: actors,
+                currentActor: currentActor,
+              );
       },
       error: (error, st) =>
           ErrorPage(error: error, reload: () => ref.refresh(recordsProvider)),
@@ -48,11 +52,13 @@ class RecordListPage extends HookConsumerWidget {
 class RecordListBody extends HookConsumerWidget {
   final List<Record> records;
   final List<Actor> actors;
+  final Actor currentActor;
 
   const RecordListBody({
     super.key,
     required this.records,
     required this.actors,
+    required this.currentActor,
   });
 
   @override
@@ -159,7 +165,9 @@ class RecordListBody extends HookConsumerWidget {
                   );
                 },
               )
-            : const RecordListEmpty(),
+            : RecordListEmpty(
+                currentActor: currentActor,
+              ),
       ),
     );
   }
