@@ -12,56 +12,57 @@ class ActorSelect extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final actors = ref.watch(actorsProvider).valueOrNull;
-    if (actors == null) {
-      return const CircularProgressIndicator();
-    }
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Row(
-          children: [
-            const Text(
-              "記録される人",
-              style: TextStyle(
-                fontWeight: FontWeight.w300,
-                fontSize: 17,
-                color: AppColor.textMain,
-              ),
-            ),
-            const Spacer(),
-            IconButton(
-              onPressed: () {
-                Navigator.of(context).push(ActorsPageRoute.route());
-              },
-              icon: const Icon(Icons.edit),
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
+    return ref.watch(actorsProvider).when(
+        data: (actors) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              for (final actor in actors)
-                Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: ChoiceChip(
-                    label: Text(actor.name),
-                    labelPadding: const EdgeInsets.all(4),
-                    avatar: CircleAvatar(
-                      backgroundColor: Colors.white.withOpacity(0.8),
-                      child: Text(actor.iconChar),
+              Row(
+                children: [
+                  const Text(
+                    "記録される人",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 17,
+                      color: AppColor.textMain,
                     ),
-                    selectedColor: Color(actor.colorHexCode),
-                    selected: selectedActor.value.id == actor.id,
                   ),
+                  const Spacer(),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.of(context).push(ActorsPageRoute.route());
+                    },
+                    icon: const Icon(Icons.edit),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    for (final actor in actors)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: ChoiceChip(
+                          label: Text(actor.name),
+                          labelPadding: const EdgeInsets.all(4),
+                          avatar: CircleAvatar(
+                            backgroundColor: Colors.white.withOpacity(0.8),
+                            child: Text(actor.iconChar),
+                          ),
+                          selectedColor: Color(actor.colorHexCode),
+                          selected: selectedActor.value.id == actor.id,
+                        ),
+                      ),
+                  ],
                 ),
+              ),
             ],
-          ),
-        ),
-      ],
-    );
+          );
+        },
+        error: (e, st) => Text(e.toString()),
+        loading: () => const CircularProgressIndicator());
   }
 }

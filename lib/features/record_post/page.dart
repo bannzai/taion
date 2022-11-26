@@ -37,14 +37,6 @@ class RecordPostPage extends HookConsumerWidget {
     final temperatureValue = temperature.value;
     final takeTemperatureDateTimeValue = takeTemperatureDateTime.value;
     final selectedActor = useState(record?.actor ?? currentActor);
-    final latestUsedActorIDNotifier = ref.watch(
-        stringSharedPreferencesProvider(StringKey.latestUsedActorID).notifier);
-    selectedActor.addListener(() {
-      final actorID = selectedActor.value.id;
-      if (actorID != null) {
-        latestUsedActorIDNotifier.set(actorID);
-      }
-    });
 
     final temperatureTextEditingController =
         useTextEditingController(text: "${temperatureValue ?? ""}");
@@ -62,6 +54,10 @@ class RecordPostPage extends HookConsumerWidget {
       }
       return null;
     }, [true]);
+
+    useEffect(() {
+      selectedActor.value = currentActor;
+    }, [currentActor.id]);
 
     debugPrint("[DEBUG] Rebuild ... ${runtimeType}");
 

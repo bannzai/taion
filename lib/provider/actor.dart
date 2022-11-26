@@ -53,7 +53,7 @@ final currentActorProvider = Provider<AsyncValue<Actor?>>((ref) {
 });
 
 final mustCurrentActorProvider =
-    Provider<Actor>((ref) => ref.watch(currentActorProvider).value!);
+    Provider<Actor>((ref) => ref.watch(currentActorProvider).asData!.value!);
 
 class SetActor {
   Future<void> call(
