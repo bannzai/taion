@@ -208,9 +208,6 @@ class ActorListItem extends HookConsumerWidget {
                   decoration: null,
                 ),
               ),
-//              Text(actor.name,
-//                  style: const TextStyle(
-//                      fontSize: 15, fontWeight: FontWeight.w500)),
               SizedBox(
                   width: 30,
                   height: 30,
