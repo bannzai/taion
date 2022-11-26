@@ -7,7 +7,6 @@ import 'package:taion/entity/actor.codegen.dart';
 import 'package:taion/features/error/alert.dart';
 import 'package:taion/features/error/page.dart';
 import 'package:taion/provider/actor.dart';
-import 'package:taion/provider/shared_preferences.dart';
 import 'package:taion/provider/user.dart';
 import 'package:taion/style/button.dart';
 import 'package:taion/style/color.dart';
@@ -121,17 +120,11 @@ class ActorListItem extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final userID = ref.watch(mustUserIDProvider);
     final setActor = ref.watch(setActorProvider);
-    final currentActor = ref.watch(mustCurrentActorProvider);
     final color = useState(Color(actor.colorHexCode));
-    final latestUsedActorIDNotifier = ref.watch(
-        stringSharedPreferencesProvider(StringKey.latestUsedActorID).notifier);
     final textEditingController = useTextEditingController(text: actor.name);
     final nameFocusNode = useFocusNode();
 
     return GestureDetector(
-      onTap: () {
-        latestUsedActorIDNotifier.set(actor.id!);
-      },
       child: Dismissible(
         key: Key(actor.id!),
         onDismissed: (_) {
@@ -233,16 +226,6 @@ class ActorListItem extends HookConsumerWidget {
                   },
                 ),
               ),
-              Container(
-                  width: 30,
-                  height: 30,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: AppColor.primary.withOpacity(0.1),
-                  ),
-                  child: actor.id == currentActor.id
-                      ? const Icon(Icons.check, color: Colors.black)
-                      : Container()),
             ],
           ),
         ),

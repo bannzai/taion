@@ -55,11 +55,6 @@ class RecordPostPage extends HookConsumerWidget {
       return null;
     }, [true]);
 
-    useEffect(() {
-      selectedActor.value = currentActor;
-      return null;
-    }, [currentActor.id]);
-
     debugPrint("[DEBUG] Rebuild ... $runtimeType");
 
     return Scaffold(
