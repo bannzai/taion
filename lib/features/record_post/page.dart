@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:taion/components/actor/actor_select.dart';
 import 'package:taion/entity/record.codegen.dart';
 import 'package:taion/features/record_post/delete_button.dart';
 import 'package:taion/features/record_post/memo.dart';
@@ -9,6 +10,7 @@ import 'package:taion/features/record_post/temperature.dart';
 import 'package:taion/features/record_post/temperature_date.dart';
 import 'package:taion/provider/actor.dart';
 import 'package:taion/provider/record.dart';
+import 'package:taion/provider/shared_preferences.dart';
 import 'package:taion/provider/user.dart';
 import 'package:taion/style/button.dart';
 import 'package:taion/style/color.dart';
@@ -34,6 +36,15 @@ class RecordPostPage extends HookConsumerWidget {
         useState(record?.takeTemperatureDateTime ?? DateTime.now());
     final temperatureValue = temperature.value;
     final takeTemperatureDateTimeValue = takeTemperatureDateTime.value;
+    final selectedActor = useState(record?.actor ?? currentActor);
+    final latestUsedActorIDNotifier = ref.watch(
+        stringSharedPreferencesProvider(StringKey.latestUsedActorID).notifier);
+    selectedActor.addListener(() {
+      final actorID = selectedActor.value.id;
+      if (actorID != null) {
+        latestUsedActorIDNotifier.set(actorID);
+      }
+    });
 
     final temperatureTextEditingController =
         useTextEditingController(text: "${temperatureValue ?? ""}");
@@ -76,6 +87,7 @@ class RecordPostPage extends HookConsumerWidget {
                     if (record != null) {
                       await setRecord(
                         record.copyWith(
+                          actor: selectedActor.value,
                           memo: memo.value,
                           tags: tags.value,
                           takeTemperatureDateTime: takeTemperatureDateTimeValue,
@@ -87,7 +99,7 @@ class RecordPostPage extends HookConsumerWidget {
                       await setRecord(
                         Record(
                           id: null,
-                          actor: currentActor,
+                          actor: selectedActor.value,
                           temperature: temperatureValue,
                           tags: tags.value,
                           memo: memo.value,
@@ -113,6 +125,8 @@ class RecordPostPage extends HookConsumerWidget {
                 padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                 controller: scrollController,
                 children: [
+                  const SizedBox(height: 20),
+                  ActorSelect(selectedActor: selectedActor),
                   const SizedBox(height: 20),
                   RecordPostTempurature(
                     temperature: temperature,
