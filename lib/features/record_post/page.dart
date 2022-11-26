@@ -125,7 +125,6 @@ class RecordPostPage extends HookConsumerWidget {
                 padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                 controller: scrollController,
                 children: [
-                  const SizedBox(height: 20),
                   ActorSelect(selectedActor: selectedActor),
                   const SizedBox(height: 20),
                   RecordPostTempurature(
