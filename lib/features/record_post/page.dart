@@ -37,12 +37,6 @@ class RecordPostPage extends HookConsumerWidget {
     final temperatureValue = temperature.value;
     final takeTemperatureDateTimeValue = takeTemperatureDateTime.value;
     final selectedActor = useState(record?.actor ?? currentActor);
-    selectedActor.addListener(() {
-      ref
-          .read(stringSharedPreferencesProvider(StringKey.latestUsedActorID)
-              .notifier)
-          .set(selectedActor.value.id!);
-    });
 
     final temperatureTextEditingController =
         useTextEditingController(text: "${temperatureValue ?? ""}");
