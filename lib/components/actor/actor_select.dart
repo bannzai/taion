@@ -23,7 +23,7 @@ class ActorSelect extends HookConsumerWidget {
         Row(
           children: [
             const Text(
-              "対象の人",
+              "記録される人",
               style: TextStyle(
                 fontWeight: FontWeight.w300,
                 fontSize: 17,
