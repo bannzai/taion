@@ -13,8 +13,8 @@ class Actor with _$Actor {
   factory Actor({
     required String? id,
     required String name,
-    required String iconEmoji,
-    required int iconColorHexCode,
+    required String iconChar,
+    required int colorHexCode,
     required int index,
     @JsonKey(
       fromJson: NonNullTimestampConverter.timestampToDateTime,
@@ -28,8 +28,8 @@ class Actor with _$Actor {
   factory Actor.create({required int index}) => Actor(
       id: null,
       name: "グループ $index",
-      iconEmoji: _randomEmoji(),
-      iconColorHexCode: _randomColorHexCode(),
+      iconChar: _randomEmoji(),
+      colorHexCode: _randomColorHexCode(),
       index: index,
       createdDateTime: DateTime.now());
 }
