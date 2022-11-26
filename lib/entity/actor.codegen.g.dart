@@ -9,7 +9,6 @@ part of 'actor.codegen.dart';
 _$_Actor _$$_ActorFromJson(Map<String, dynamic> json) => _$_Actor(
       id: json['id'] as String?,
       name: json['name'] as String,
-      iconChar: json['iconChar'] as String,
       colorHexCode: json['colorHexCode'] as int,
       index: json['index'] as int,
       createdDateTime: NonNullTimestampConverter.timestampToDateTime(
@@ -19,7 +18,6 @@ _$_Actor _$$_ActorFromJson(Map<String, dynamic> json) => _$_Actor(
 Map<String, dynamic> _$$_ActorToJson(_$_Actor instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'iconChar': instance.iconChar,
       'colorHexCode': instance.colorHexCode,
       'index': instance.index,
       'createdDateTime': NonNullTimestampConverter.dateTimeToTimestamp(

@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:taion/components/keyboard/keyboard_toolbar.dart';
 import 'package:taion/entity/actor.codegen.dart';
+import 'package:taion/features/error/page.dart';
 import 'package:taion/provider/actor.dart';
 import 'package:taion/provider/user.dart';
 
@@ -12,17 +13,25 @@ class ActorsPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final actors = ref.watch(actorsProvider).valueOrNull;
+    return ref.watch(actorsProvider).when(
+        data: (actors) => ActorsPageBody(actors: actors),
+        error: (e, st) =>
+            ErrorPage(error: e, reload: () => ref.refresh(actorsProvider)),
+        loading: () => const CircularProgressIndicator());
+  }
+}
+
+class ActorsPageBody extends HookConsumerWidget {
+  final List<Actor> actors;
+  const ActorsPageBody({super.key, required this.actors});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     final setActor = ref.watch(setActorProvider);
     final userID = ref.watch(mustUserIDProvider);
     final scrollController = useScrollController();
     final nameFocusNode = useFocusNode();
 
-    if (actors == null) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
-    }
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
@@ -140,16 +149,19 @@ class ActorListItem extends HookConsumerWidget {
             child: CircleAvatar(
               radius: 30,
               backgroundColor: Color(actor.colorHexCode),
-              child: Text(actor.iconChar,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w500,
-                  )),
+              child: Text(
+                actor.iconChar,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ),
           ),
         ),
         const SizedBox(width: 16),
         Text(actor.name,
-            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w400)),
+            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
         if (actor.id == currentActor.id) ...[
           const Spacer(),
           const Icon(Icons.check, color: Colors.black),

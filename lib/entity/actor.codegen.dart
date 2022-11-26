@@ -13,7 +13,6 @@ class Actor with _$Actor {
   factory Actor({
     required String? id,
     required String name,
-    required String iconChar,
     required int colorHexCode,
     required int index,
     @JsonKey(
@@ -24,18 +23,19 @@ class Actor with _$Actor {
   }) = _Actor;
   Actor._();
 
+  String get iconChar => name.substring(0, 1);
+
   factory Actor.fromJson(Map<String, dynamic> json) => _$ActorFromJson(json);
   factory Actor.create({required int index, required String name}) => Actor(
       id: null,
       name: name,
-      iconChar: name.substring(0, 1),
       colorHexCode: _randomColorHexCode(),
       index: index,
       createdDateTime: DateTime.now());
 }
 
 int _randomColorHexCode() {
-  return (Random().nextDouble() * 0xFFFFFF).toInt();
+  return (Random().nextDouble() * 0xFFFFFFFF).toInt();
 }
 
 // String _randomEmoji() {
