@@ -36,6 +36,7 @@ class RecordPostPage extends HookConsumerWidget {
     final temperatureValue = temperature.value;
     final takeTemperatureDateTimeValue = takeTemperatureDateTime.value;
     final selectedActor = useState(record?.actor ?? currentActor);
+    final selectedActorValue = selectedActor.value;
 
     final temperatureTextEditingController =
         useTextEditingController(text: "${temperatureValue ?? ""}");
@@ -78,7 +79,7 @@ class RecordPostPage extends HookConsumerWidget {
                     if (record != null) {
                       await setRecord(
                         record.copyWith(
-                          actor: selectedActor.value,
+                          actor: selectedActorValue,
                           memo: memo.value,
                           tags: tags.value,
                           takeTemperatureDateTime: takeTemperatureDateTimeValue,
@@ -90,7 +91,7 @@ class RecordPostPage extends HookConsumerWidget {
                       await setRecord(
                         Record(
                           id: null,
-                          actor: selectedActor.value,
+                          actor: selectedActorValue,
                           temperature: temperatureValue,
                           tags: tags.value,
                           memo: memo.value,
