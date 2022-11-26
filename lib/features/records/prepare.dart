@@ -25,6 +25,6 @@ class RecordListPrepare extends HookConsumerWidget {
       return null;
     }, [true]);
 
-    return Container();
+    return const Center(child: CircularProgressIndicator());
   }
 }
