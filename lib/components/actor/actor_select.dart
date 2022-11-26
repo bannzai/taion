@@ -35,7 +35,7 @@ class ActorSelect extends HookConsumerWidget {
               onPressed: () {
                 Navigator.of(context).push(ActorsPageRoute.route());
               },
-              icon: const Icon(Icons.add),
+              icon: const Icon(Icons.edit),
             ),
           ],
         ),
@@ -54,7 +54,7 @@ class ActorSelect extends HookConsumerWidget {
                       backgroundColor: Colors.white.withOpacity(0.8),
                       child: Text(actor.iconChar),
                     ),
-                    selectedColor: AppColor.primaryAccent,
+                    selectedColor: Color(actor.colorHexCode),
                     selected: selectedActor.value.id == actor.id,
                   ),
                 ),
