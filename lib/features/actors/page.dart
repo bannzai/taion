@@ -6,6 +6,7 @@ import 'package:taion/components/keyboard/keyboard_toolbar.dart';
 import 'package:taion/entity/actor.codegen.dart';
 import 'package:taion/features/error/page.dart';
 import 'package:taion/provider/actor.dart';
+import 'package:taion/provider/shared_preferences.dart';
 import 'package:taion/provider/user.dart';
 
 class ActorsPage extends HookConsumerWidget {
@@ -109,89 +110,99 @@ class ActorListItem extends HookConsumerWidget {
     final setActor = ref.watch(setActorProvider);
     final currentActor = ref.watch(mustCurrentActorProvider);
     final color = useState(Color(actor.colorHexCode));
+    final latestUsedActorIDNotifier = ref.watch(
+        stringSharedPreferencesProvider(StringKey.latestUsedActorID).notifier);
 
-    return Dismissible(
-      key: Key(actor.id!),
-      onDismissed: (_) {
-        ref.read(deleteActorProvider).call(actor, userID: userID);
+    return GestureDetector(
+      onTap: () {
+        latestUsedActorIDNotifier.set(actor.id!);
       },
-      background: Container(
-        color: Colors.red,
-        child: const SizedBox(
-          width: 40,
-          child: Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: Text(
-                "削除",
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14,
-                  color: Colors.white,
+      child: Dismissible(
+        key: Key(actor.id!),
+        onDismissed: (_) {
+          ref.read(deleteActorProvider).call(actor, userID: userID);
+        },
+        background: Container(
+          color: Colors.red,
+          child: const SizedBox(
+            width: 40,
+            child: Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  "削除",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.right,
                 ),
-                textAlign: TextAlign.right,
               ),
             ),
           ),
         ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-        child: Row(
-          children: [
-            SizedBox(
-              height: 60,
-              width: 60,
-              child: GestureDetector(
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (_) => AlertDialog(
-                      title: const Text('Pick a color!'),
-                      content: SingleChildScrollView(
-                        child: ColorPicker(
-                          pickerColor: color.value,
-                          onColorChanged: (value) => color.value = value,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+          child: Row(
+            children: [
+              SizedBox(
+                height: 60,
+                width: 60,
+                child: GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        title: const Text('Pick a color!'),
+                        content: SingleChildScrollView(
+                          child: ColorPicker(
+                            pickerColor: color.value,
+                            onColorChanged: (value) => color.value = value,
+                          ),
                         ),
+                        actions: <Widget>[
+                          ElevatedButton(
+                            child: const Text('閉じる'),
+                            onPressed: () async {
+                              setActor(
+                                actor.copyWith(colorHexCode: color.value.value),
+                                userID: userID,
+                              );
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
                       ),
-                      actions: <Widget>[
-                        ElevatedButton(
-                          child: const Text('閉じる'),
-                          onPressed: () async {
-                            setActor(
-                              actor.copyWith(colorHexCode: color.value.value),
-                              userID: userID,
-                            );
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                child: CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Color(actor.colorHexCode),
-                  child: Text(
-                    actor.iconChar,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
+                    );
+                  },
+                  child: CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Color(actor.colorHexCode),
+                    child: Text(
+                      actor.iconChar,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(width: 16),
-            Text(actor.name,
-                style:
-                    const TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
-            if (actor.id == currentActor.id) ...[
+              const SizedBox(width: 16),
+              Text(actor.name,
+                  style: const TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.w500)),
               const Spacer(),
-              const Icon(Icons.check, color: Colors.black),
-            ]
-          ],
+              SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: actor.id == currentActor.id
+                      ? const Icon(Icons.check, color: Colors.black)
+                      : Container()),
+            ],
+          ),
         ),
       ),
     );
