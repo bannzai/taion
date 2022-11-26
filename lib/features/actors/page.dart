@@ -13,6 +13,8 @@ class ActorsPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final actors = ref.watch(actorsProvider).valueOrNull;
+    final setActor = ref.watch(setActorProvider);
+    final userID = ref.watch(mustUserIDProvider);
     final scrollController = useScrollController();
     final nameFocusNode = useFocusNode();
 
@@ -33,6 +35,18 @@ class ActorsPage extends HookConsumerWidget {
             Navigator.of(context).pop();
           },
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              final index = actors.length;
+              setActor(
+                Actor.create(index: index, name: "グループ $index"),
+                userID: userID,
+              );
+            },
+            icon: const Icon(Icons.add),
+          )
+        ],
       ),
       body: SafeArea(
         child: Column(
@@ -41,14 +55,24 @@ class ActorsPage extends HookConsumerWidget {
           children: [
             Expanded(
               child: ListView(
-                padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                 controller: scrollController,
                 children: [
+                  const Divider(
+                    height: 0.5,
+                    color: Colors.grey,
+                  ),
                   for (final actor in actors)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 16),
-                      child: ActorListItem(actor: actor),
-                    ),
+                    Column(children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 16),
+                        child: ActorListItem(actor: actor),
+                      ),
+                      const Divider(
+                        height: 0.5,
+                        color: Colors.grey,
+                      ),
+                    ]),
                 ],
               ),
             ),
@@ -78,6 +102,7 @@ class ActorListItem extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final userID = ref.watch(mustUserIDProvider);
     final setActor = ref.watch(setActorProvider);
+    final currentActor = ref.watch(mustCurrentActorProvider);
     final color = useState(Color(actor.colorHexCode));
 
     return Row(
@@ -115,12 +140,20 @@ class ActorListItem extends HookConsumerWidget {
             child: CircleAvatar(
               radius: 30,
               backgroundColor: Color(actor.colorHexCode),
-              child: Text(actor.iconChar),
+              child: Text(actor.iconChar,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                  )),
             ),
           ),
         ),
         const SizedBox(width: 16),
-        Text(actor.name),
+        Text(actor.name,
+            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w400)),
+        if (actor.id == currentActor.id) ...[
+          const Spacer(),
+          const Icon(Icons.check, color: Colors.black),
+        ]
       ],
     );
   }
