@@ -5,10 +5,10 @@ import 'package:taion/features/actors/page.dart';
 import 'package:taion/provider/actor.dart';
 import 'package:taion/style/color.dart';
 
-class ActorSelect extends HookConsumerWidget {
-  final ValueNotifier<Actor?> selectedActor;
+class RecordPostActorSelect extends HookConsumerWidget {
+  final ValueNotifier<Actor> selectedActor;
 
-  const ActorSelect({super.key, required this.selectedActor});
+  const RecordPostActorSelect({super.key, required this.selectedActor});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

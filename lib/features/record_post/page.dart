@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:taion/components/actor/actor_select.dart';
+import 'package:taion/features/record_post/actor_select.dart';
+import 'package:taion/features/records/components/filter/actor_select.dart';
 import 'package:taion/entity/record.codegen.dart';
 import 'package:taion/features/record_post/delete_button.dart';
 import 'package:taion/features/record_post/memo.dart';
@@ -116,7 +117,7 @@ class RecordPostPage extends HookConsumerWidget {
                 padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                 controller: scrollController,
                 children: [
-                  ActorSelect(selectedActor: selectedActor),
+                  RecordPostActorSelect(selectedActor: selectedActor),
                   const SizedBox(height: 20),
                   RecordPostTempurature(
                     temperature: temperature,
