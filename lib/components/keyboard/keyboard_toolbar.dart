@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:taion/style/button.dart';
 import 'package:taion/style/color.dart';
-import 'package:taion/utility/analytics.dart';
 
 const double keyboardToolbarHeight = 44;
 
 class KeyboardToolbar extends StatelessWidget {
-  const KeyboardToolbar({super.key});
+  final Widget doneButton;
+  const KeyboardToolbar({super.key, required this.doneButton});
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +18,8 @@ class KeyboardToolbar extends StatelessWidget {
           child: Row(
             children: [
               const Spacer(),
-              AppTextButton(
-                text: const Text('完了',
-                    style: TextStyle(
-                        color: AppColor.primary, fontWeight: FontWeight.bold)),
-                onPressed: () async {
-                  analytics.logEvent(name: "done_keyboard_toolbar");
-                  FocusScope.of(context).unfocus();
-                },
-              ),
+              doneButton,
+              const SizedBox(width: 20),
             ],
           ),
         ),

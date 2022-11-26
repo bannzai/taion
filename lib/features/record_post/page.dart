@@ -10,7 +10,6 @@ import 'package:taion/features/record_post/temperature.dart';
 import 'package:taion/features/record_post/temperature_date.dart';
 import 'package:taion/provider/actor.dart';
 import 'package:taion/provider/record.dart';
-import 'package:taion/provider/shared_preferences.dart';
 import 'package:taion/provider/user.dart';
 import 'package:taion/style/button.dart';
 import 'package:taion/style/color.dart';
@@ -57,9 +56,10 @@ class RecordPostPage extends HookConsumerWidget {
 
     useEffect(() {
       selectedActor.value = currentActor;
+      return null;
     }, [currentActor.id]);
 
-    debugPrint("[DEBUG] Rebuild ... ${runtimeType}");
+    debugPrint("[DEBUG] Rebuild ... $runtimeType");
 
     return Scaffold(
       backgroundColor: Colors.white,

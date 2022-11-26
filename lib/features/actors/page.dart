@@ -8,7 +8,9 @@ import 'package:taion/features/error/page.dart';
 import 'package:taion/provider/actor.dart';
 import 'package:taion/provider/shared_preferences.dart';
 import 'package:taion/provider/user.dart';
+import 'package:taion/style/button.dart';
 import 'package:taion/style/color.dart';
+import 'package:taion/utility/analytics.dart';
 
 class ActorsPage extends HookConsumerWidget {
   const ActorsPage({super.key});
@@ -82,7 +84,17 @@ class ActorsPageBody extends HookConsumerWidget {
                 ],
               ),
             ),
-            const KeyboardToolbar(),
+            KeyboardToolbar(
+              doneButton: AppTextButton(
+                text: const Text('キャンセル',
+                    style: TextStyle(
+                        color: AppColor.primary, fontWeight: FontWeight.bold)),
+                onPressed: () async {
+                  analytics.logEvent(name: "actors_name_cancel_button_pressed");
+                  FocusScope.of(context).unfocus();
+                },
+              ),
+            ),
           ],
         ),
       ),
@@ -206,6 +218,13 @@ class ActorListItem extends HookConsumerWidget {
                     fontWeight: FontWeight.w500,
                   ),
                   decoration: null,
+                  onSubmitted: (value) {
+                    setActor(
+                      actor.copyWith(name: value),
+                      userID: userID,
+                    );
+                    nameFocusNode.unfocus();
+                  },
                 ),
               ),
               Container(
