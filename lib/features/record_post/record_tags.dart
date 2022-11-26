@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:taion/entity/record.codegen.dart';
 import 'package:taion/style/color.dart';
 
-class RecordTags extends StatelessWidget {
+class RecordPostRecordTags extends StatelessWidget {
   final ValueNotifier<List<String>> selectedTags;
 
-  const RecordTags({super.key, required this.selectedTags});
+  const RecordPostRecordTags({super.key, required this.selectedTags});
 
   @override
   Widget build(BuildContext context) {
