@@ -10,6 +10,7 @@ import 'package:taion/features/record_post/temperature.dart';
 import 'package:taion/features/record_post/temperature_date.dart';
 import 'package:taion/provider/actor.dart';
 import 'package:taion/provider/record.dart';
+import 'package:taion/provider/shared_preferences.dart';
 import 'package:taion/provider/user.dart';
 import 'package:taion/style/button.dart';
 import 'package:taion/style/color.dart';
@@ -36,6 +37,12 @@ class RecordPostPage extends HookConsumerWidget {
     final temperatureValue = temperature.value;
     final takeTemperatureDateTimeValue = takeTemperatureDateTime.value;
     final selectedActor = useState(record?.actor ?? currentActor);
+    selectedActor.addListener(() {
+      ref
+          .read(stringSharedPreferencesProvider(StringKey.latestUsedActorID)
+              .notifier)
+          .set(selectedActor.value.id!);
+    });
 
     final temperatureTextEditingController =
         useTextEditingController(text: "${temperatureValue ?? ""}");
