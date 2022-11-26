@@ -72,11 +72,7 @@ class ActorsPageBody extends HookConsumerWidget {
                   ),
                   for (final actor in actors)
                     Column(children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 12, horizontal: 16),
-                        child: ActorListItem(actor: actor),
-                      ),
+                      ActorListItem(actor: actor),
                       const Divider(
                         height: 0.5,
                         color: Colors.grey,
@@ -114,59 +110,90 @@ class ActorListItem extends HookConsumerWidget {
     final currentActor = ref.watch(mustCurrentActorProvider);
     final color = useState(Color(actor.colorHexCode));
 
-    return Row(
-      children: [
-        SizedBox(
-          height: 60,
-          width: 60,
-          child: GestureDetector(
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (_) => AlertDialog(
-                  title: const Text('Pick a color!'),
-                  content: SingleChildScrollView(
-                    child: ColorPicker(
-                      pickerColor: color.value,
-                      onColorChanged: (value) => color.value = value,
-                    ),
-                  ),
-                  actions: <Widget>[
-                    ElevatedButton(
-                      child: const Text('閉じる'),
-                      onPressed: () async {
-                        setActor(
-                          actor.copyWith(colorHexCode: color.value.value),
-                          userID: userID,
-                        );
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                ),
-              );
-            },
-            child: CircleAvatar(
-              radius: 30,
-              backgroundColor: Color(actor.colorHexCode),
+    return Dismissible(
+      key: Key(actor.id!),
+      onDismissed: (_) {
+        ref.read(deleteActorProvider).call(actor, userID: userID);
+      },
+      background: Container(
+        color: Colors.red,
+        child: const SizedBox(
+          width: 40,
+          child: Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Align(
+              alignment: Alignment.centerRight,
               child: Text(
-                actor.iconChar,
-                style: const TextStyle(
+                "削除",
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14,
                   color: Colors.white,
-                  fontWeight: FontWeight.w500,
                 ),
+                textAlign: TextAlign.right,
               ),
             ),
           ),
         ),
-        const SizedBox(width: 16),
-        Text(actor.name,
-            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
-        if (actor.id == currentActor.id) ...[
-          const Spacer(),
-          const Icon(Icons.check, color: Colors.black),
-        ]
-      ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+        child: Row(
+          children: [
+            SizedBox(
+              height: 60,
+              width: 60,
+              child: GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      title: const Text('Pick a color!'),
+                      content: SingleChildScrollView(
+                        child: ColorPicker(
+                          pickerColor: color.value,
+                          onColorChanged: (value) => color.value = value,
+                        ),
+                      ),
+                      actions: <Widget>[
+                        ElevatedButton(
+                          child: const Text('閉じる'),
+                          onPressed: () async {
+                            setActor(
+                              actor.copyWith(colorHexCode: color.value.value),
+                              userID: userID,
+                            );
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                child: CircleAvatar(
+                  radius: 30,
+                  backgroundColor: Color(actor.colorHexCode),
+                  child: Text(
+                    actor.iconChar,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Text(actor.name,
+                style:
+                    const TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
+            if (actor.id == currentActor.id) ...[
+              const Spacer(),
+              const Icon(Icons.check, color: Colors.black),
+            ]
+          ],
+        ),
+      ),
     );
   }
 }
