@@ -54,11 +54,7 @@ class ActorSelect extends HookConsumerWidget {
                       backgroundColor: Colors.white.withOpacity(0.8),
                       child: Text(actor.iconChar),
                     ),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(20),
-                          bottomRight: Radius.circular(20)),
-                    ),
+                    selectedColor: AppColor.primaryAccent,
                     selected: selectedActor.value.id == actor.id,
                   ),
                 ),
