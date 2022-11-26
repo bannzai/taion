@@ -61,8 +61,6 @@ class ActorSelect extends HookConsumerWidget {
                           onSelected: (selected) {
                             if (selected) {
                               selectedActor.value = actor;
-                            } else {
-                              selectedActor.value = null;
                             }
                           },
                         ),
