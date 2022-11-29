@@ -35,6 +35,14 @@ class ActorsPageBody extends HookConsumerWidget {
     final userID = ref.watch(mustUserIDProvider);
     final scrollController = useScrollController();
 
+    // FIXME: なぜかFocusScope.of(context).hasFocusになりKeyboardToolbarが表示されてしまうのでunfocusする
+    useEffect(() {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        FocusScope.of(context).unfocus();
+      });
+      return null;
+    }, [true]);
+
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
@@ -84,17 +92,21 @@ class ActorsPageBody extends HookConsumerWidget {
                 ],
               ),
             ),
-            KeyboardToolbar(
-              doneButton: AppTextButton(
-                text: const Text('キャンセル',
-                    style: TextStyle(
-                        color: AppColor.primary, fontWeight: FontWeight.bold)),
-                onPressed: () async {
-                  analytics.logEvent(name: "actors_name_cancel_button_pressed");
-                  FocusScope.of(context).unfocus();
-                },
+            if (FocusScope.of(context).hasFocus) ...[
+              KeyboardToolbar(
+                doneButton: AppTextButton(
+                  text: const Text('キャンセル',
+                      style: TextStyle(
+                          color: AppColor.primary,
+                          fontWeight: FontWeight.bold)),
+                  onPressed: () async {
+                    analytics.logEvent(
+                        name: "actors_name_cancel_button_pressed");
+                    FocusScope.of(context).unfocus();
+                  },
+                ),
               ),
-            ),
+            ],
           ],
         ),
       ),
