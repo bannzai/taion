@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 abstract class AppColor {
-  static const int _primaryValue = 0xFF009144;
+  static const int _primaryValue = 0xFF7AB678;
   static const Color primary = Color(_primaryValue);
   static const Color danger = Color(0xFFFF4B00);
   static const Color textMain = Colors.black;
@@ -11,24 +11,23 @@ abstract class AppColor {
 
   static const MaterialColor primaryMaterialColor =
       MaterialColor(_primaryValue, <int, Color>{
-    50: Color(0xFFE0F2E9),
-    100: Color(0xFFB3DEC7),
-    200: Color(0xFF80C8A2),
-    300: Color(0xFF4DB27C),
-    400: Color(0xFF26A260),
+    50: Color(0xFFEFF6EF),
+    100: Color(0xFFD7E9D7),
+    200: Color(0xFFBDDBBC),
+    300: Color(0xFFA2CCA1),
+    400: Color(0xFF8EC18C),
     500: primary,
-    600: Color(0xFF00893E),
-    700: Color(0xFF007E35),
-    800: Color(0xFF00742D),
-    900: Color(0xFF00621F),
+    600: Color(0xFF72AF70),
+    700: Color(0xFF67A665),
+    800: Color(0xFF5D9E5B),
+    900: Color(0xFF4A8E48),
   });
-
   static const MaterialColor primaryAccent =
       MaterialColor(_primaryAccentValue, <int, Color>{
-    100: Color(0xFF92FFAA),
+    100: Color(0xFFEAFFEA),
     200: Color(_primaryAccentValue),
-    400: Color(0xFF2CFF5A),
-    700: Color(0xFF13FF47),
+    400: Color(0xFF87FF84),
+    700: Color(0xFF6EFF6A),
   });
-  static const int _primaryAccentValue = 0xFF5FFF82;
+  static const int _primaryAccentValue = 0xFFB9FFB7;
 }

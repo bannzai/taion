@@ -87,10 +87,11 @@ class RecordListBody extends HookConsumerWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
+        foregroundColor: Colors.white,
         onPressed: () {
           Navigator.of(context).push(RecordPostPageRoute.route(record: null));
         },
+        child: const Icon(Icons.add),
       ),
       body: SafeArea(
         child: _recordIsExistInMonth(dateForMonth: dateForMonth.value)
